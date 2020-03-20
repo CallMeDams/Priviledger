@@ -1,0 +1,183 @@
+<BOUCLE_article_principal(ARTICLES){id_article}{lang_select=non}{0,1}>[
+	(#REM)  *****
+			HEAD CSS AND JS INCLUSION : AUTOMATIC DETECTION FOR BASIS AND USEFUL ONLY CSS AND JS FILES
+			*****
+	]<INCLURE{fond=models/head}{env}{id_article}{page=page}{type=website}>
+
+    <!--INITCSS()-->
+</head>
+
+<body id="page" class="[(#ENV{device})][(#ENV{mandatory}|=={1}|?{' mandatory',''})]">
+
+	[(#REM) *****
+			HEADER INCLUDE
+			*****
+	]<INCLURE{fond=imports/header,page=page}{env}{id_article}>
+
+
+    [(#REM) *****
+			HOME H1 WITH BACKGROUND IMAGE
+			To change the image. Go in the backoffice :
+				HOME PAGE > Article > Change image linked
+			*****
+	]<div id="onecard_header" class="fullBack Top flex fxjc" style="background-image:url(<BOUCLE_back_h1(DOCUMENTS){id_article}{extension==jpg|gif|png}{0,1}>[(#ENV{device}|!={'phone'}|?{#URL_DOCUMENT,[(#LOGO_DOCUMENT|fichier|sinon{[(#FICHIER|image_passe_partout{600,600}|image_recadre{600,600,center}|inserer_attribut{class,backimage})]})]})]</BOUCLE_back_h1>)">
+		
+		[(#REM) *****
+				ANIMATED CARDS
+				*****
+		]<div id="onecard">
+
+			[(#REM) *****
+					CARD CONTENT
+					------------
+					*****
+			]<BOUCLE_cards(ARTICLES){id_rubrique=14}{par hasard}{lang}{0,1}{'
+			'}><div class="animCard">
+				<div id="card#COMPTEUR_BOUCLE" class="card">
+					<div class="content flex fxjc">
+						<h2 class="romina">
+							#TITRE
+							<strong class="farnham">#SOUSTITRE</strong>
+						</h2>
+						<div class="chapo">
+							[(#ENV{device}|=={'phone'}|?{[(#CHAPO|couper{180})],[(#CHAPO|couper{250})]})]
+						</div>
+						<a #SESSION{appLinkFull} class="link">[(#NOM_SITE|sinon{<:reserveapp:>})]</a>
+					</div>
+				</div>
+			</div></BOUCLE_cards>
+
+		</div>
+		
+	</div>
+	
+	[(#REM) *****
+			MAIN PAGE CONTENT
+			*****
+	]<div class="page_content">
+	
+		[(#REM) *****
+				MAIN TEXT
+				*****
+		]<h1 class="romina">
+			#TITRE[<br>(#SOUSTITRE)]
+			<strong class="farnham">[(#CHAPO|textebrut)]</strong>
+		</h1>
+		
+		[(#REM) *****
+				RESULTS
+				*****
+		]<div id="results"><BOUCLE_applink(ARTICLES){id_rubrique=28}{titre LIKE %ios%}{lang}{0,1}>#SET{appL,#URL_SITE}</BOUCLE_applink>
+		
+			<div class="line boxed flex fxjb">
+			
+				<BOUCLE_line_1_section(RUBRIQUES){tout}{titre LIKE %product%}{titre LIKE %#ENV{priville}%}{lang_select=non}><BOUCLE_line_1(ARTICLES){id_rubrique}{par hasard}{doublons}{lang}{0,2}{'
+				
+				'}><div class="product half animated" data-anim-options="fadeIn">
+					<a href="#URL_ARTICLE" class="toproduct"><BOUCLE_thumbs_1(DOCUMENTS){id_article}{titre LIKE %thumb%}{0,1}><img src="#URL_DOCUMENT" alt="#DESCRIPTIF"></BOUCLE_thumbs_1></a>
+					<h2><a href="#URL_ARTICLE"><strong class="farnham">#TITRE</strong>[(#SOUSTITRE)]</a></h2>
+					<div class="descriptif">
+						[(#CHAPO|couper{100})]
+					</div>
+					<div class="downloadsmallblock">
+						<a #SESSION{appLinkFull}>
+							<!--<img src="medias/imports/download_app_icon_circle.png" alt="#NOM_SITE">-->			
+							<em><:toreserveapp:></em>
+						</a>
+					</div>
+				</div></BOUCLE_line_1></BOUCLE_line_1_section>
+			
+			</div>
+			
+			<BOUCLE_line_2_section(RUBRIQUES){tout}{titre LIKE %product%}{titre LIKE %#ENV{priville}%}{lang_select=non}><B_line_2><div class="line boxed">
+			
+				<BOUCLE_line_2(ARTICLES){id_rubrique}{par hasard}{doublons}{lang}{0,1}><div class="product full animated" data-anim-options="fadeIn">
+					<a href="#URL_ARTICLE" class="toproduct"><BOUCLE_thumbs_2(DOCUMENTS){id_article}{titre LIKE %thumb%}{0,1}><img src="#URL_DOCUMENT" alt="#DESCRIPTIF"></BOUCLE_thumbs_2></a>
+					<h2><a href="#URL_ARTICLE"><strong class="farnham">#TITRE</strong>[(#SOUSTITRE)]</a></h2>
+					<div class="descriptif">
+						[(#CHAPO|couper{100})]
+					</div>
+					<div class="downloadsmallblock">
+						<a #SESSION{appLinkFull}>
+							<!--<img src="medias/imports/download_app_icon_circle.png" alt="#NOM_SITE">-->			
+							<em><:toreserveapp:></em>
+						</a>
+					</div>
+				</div></BOUCLE_line_2>
+			
+			</div></B_line_2></BOUCLE_line_2_section>
+			
+			<BOUCLE_line_3_section(RUBRIQUES){tout}{titre LIKE %product%}{titre LIKE %#ENV{priville}%}{lang_select=non}><B_line_3><div class="line boxed flex fxjb">
+			
+				<BOUCLE_line_3(ARTICLES){id_rubrique}{par hasard}{doublons}{lang}{0,2}{'
+				
+				'}><div class="product half animated" data-anim-options="fadeIn">
+					<a href="#URL_ARTICLE" class="toproduct"><BOUCLE_thumbs_3(DOCUMENTS){id_article}{titre LIKE %thumb%}{0,1}><img src="#URL_DOCUMENT" alt="#DESCRIPTIF"></BOUCLE_thumbs_3></a>
+					<h2><a href="#URL_ARTICLE"><strong class="farnham">#TITRE</strong>[(#SOUSTITRE)]</a></h2>
+					<div class="descriptif">
+						[(#CHAPO|couper{100})]
+					</div>
+					<div class="downloadsmallblock">
+						<a #SESSION{appLinkFull}>
+							<!--<img src="medias/imports/download_app_icon_circle.png" alt="#NOM_SITE">-->			
+							<em><:toreserveapp:></em>
+						</a>
+					</div>
+				</div></BOUCLE_line_3>
+			
+			</div></B_line_3></BOUCLE_line_3_section>
+
+			<BOUCLE_line_4_section(RUBRIQUES){tout}{titre LIKE %product%}{titre LIKE %#ENV{priville}%}{lang_select=non}><B_line_4><div class="line solo">
+			
+				<BOUCLE_line_4(ARTICLES){id_rubrique}{par hasard}{doublons}{lang}{0,1}><div class="product flex fxjc animated" data-anim-options="fadeIn">
+					<a href="#URL_ARTICLE" class="toproduct"><BOUCLE_thumbs_4(DOCUMENTS){id_article}{titre LIKE %thumb%}{0,1}><img src="#URL_DOCUMENT" alt="#DESCRIPTIF"></BOUCLE_thumbs_4></a>
+					<h2><a href="#URL_ARTICLE"><strong class="farnham">#TITRE</strong>[(#SOUSTITRE)]</a></h2>
+					<div class="descriptif">
+						[(#CHAPO|couper{100})]
+					</div>
+					<div class="downloadsmallblock">
+						<a #SESSION{appLinkFull}>
+							<!--<img src="medias/imports/download_app_icon_circle.png" alt="#NOM_SITE">-->			
+							<em><:toreserveapp:></em>
+						</a>
+					</div>
+				</div></BOUCLE_line_4>
+			
+			</div></B_line_4></BOUCLE_line_4_section>
+
+			<BOUCLE_line_5_section(RUBRIQUES){tout}{titre LIKE %product%}{titre LIKE %#ENV{priville}%}{lang_select=non}><B_line_5><div class="line boxed">
+			
+				<BOUCLE_line_5(ARTICLES){id_rubrique}{par hasard}{doublons}{lang}{0,1}><div class="product full animated" data-anim-options="fadeIn">
+					<a href="#URL_ARTICLE" class="toproduct"><BOUCLE_thumbs_5(DOCUMENTS){id_article}{titre LIKE %thumb%}{0,1}><img src="#URL_DOCUMENT" alt="#DESCRIPTIF"></BOUCLE_thumbs_5></a>
+					<h2><a href="#URL_ARTICLE"><strong class="farnham">#TITRE</strong>[(#SOUSTITRE)]</a></h2>
+					<div class="descriptif">
+						[(#CHAPO|couper{100})]
+					</div>
+					<div class="downloadsmallblock">
+						<a #SESSION{appLinkFull}>
+							<!--<img src="medias/imports/download_app_icon_circle.png" alt="#NOM_SITE">-->			
+							<em><:toreserveapp:></em>
+						</a>
+					</div>
+				</div></BOUCLE_line_5>
+			
+			</div></B_line_5></BOUCLE_line_5_section>
+		
+		</div>
+	
+	</div>
+
+    [(#REM) *****
+			FOOTER INCLUDE
+			*****
+	]<INCLURE{fond=imports/footer,page=page}{env}{id_article}>
+
+
+	[(#REM) *****
+			LEGAL, CSS AND JS ADDONS MANAGEMENT
+			*****
+	]<INCLURE{fond=models/addons,addon=ending}{env}{id_article}{page=page.must}>
+
+
+</body>
+</html></BOUCLE_article_principal>

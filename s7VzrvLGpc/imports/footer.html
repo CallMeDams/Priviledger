@@ -1,0 +1,157 @@
+[(#REM) *****
+			DOWNLOAD APP CIRCLE LINK INCLUDE
+			*****
+	]<INCLURE{fond=imports/circle_link}>
+
+    [(#REM) *****
+			FOOTER
+			*****
+	]<footer class="flex fxjc[(#ENV{device}|=={'desktop'}|oui)samesize]">
+
+		[(#REM) *****
+				TOP FOOTER : DOWNLOAD PART
+				*****
+		]<div id="download">
+
+			<div class="blackwrap flex fxjc">
+
+				<BOUCLE_download(ARTICLES){id_rubrique=25}{lang}{0,1}><div class="title romina">
+					<strong>
+						#TITRE
+					</strong>
+				</div></BOUCLE_download>
+
+				<!--<div id="applink_container">
+					<BOUCLE_applink1(ARTICLES){id_rubrique=28}{lang}{'
+					'}><a href="#URL_SITE" target="_blank" rel="external">
+						<BOUCLE_apps(DOCUMENTS){id_article}{extension==png|jpg|gif}{0,1}><img src="#URL_DOCUMENT" alt="<:downloadapp:> #TITRE"></BOUCLE_apps>
+					</a></BOUCLE_applink1>
+				</div>-->
+                
+                <div class="downloadsmallblock">
+                    <a #SESSION{appLinkFull}>
+                        <img src="medias/imports/download_app_icon_circle.png" alt="#NOM_SITE">				
+                        <em><:toreserveapp:></em>
+                    </a>
+                </div>
+
+			</div>
+
+		</div>
+
+		[(#REM) *****
+				FOUR COLUMNS : LOGO + CONTACT + SOCIAL
+				*****
+		]<BOUCLE_contact_infos(ARTICLES){id_rubrique=25}{lang}{0,1}><div id="contact_informations" class="flex fxjc item">
+
+			[(#REM) *****
+					LOGO
+					*****
+			]<a href="#" id="footer_app_link">
+				<BOUCLE_pic(DOCUMENTS){id_article}{fichier LIKE %icon%}{0,1}{doublons}><img src="#URL_DOCUMENT" alt="#DESCRIPTIF" width="57"></BOUCLE_pic>
+			</a>
+			
+			[(#REM) *****
+					LOGO
+					*****
+			]<a href="#ENV{site_root}" id="footer_logo">
+				<img src="medias/imports/logo_priviledger.svg" width="340" alt="#NOM_SITE_SPIP - [(#DESCRIPTIF_SITE_SPIP|textebrut)]">
+			</a>
+
+			[(#REM) *****
+					MAIL
+					*****
+			][(#ID_ARTICLE|crypt_html{<a href="mailto:#SURTITRE" class="lasts">#SURTITRE</a>})]
+
+			[(#REM) *****
+					SOCIAL NETWORK
+					*****
+			]<div class="full"><a href="#URL_SITE**" class="lasts" target="_blank" rel="external"><i class="fab fa-#NOM_SITE**"></i>&nbsp;[(#NOM_SITE**|replace{'weixin','微信'})]</a></div>
+
+		</div>
+
+		[(#REM) *****
+				SEPARATOR
+				*****
+		]<div class="separator item"></div>
+
+		[(#REM) *****
+				TOWN LIST
+				*****
+		]<div id="town_list" class="item box">
+			<strong>[(#CHAPO|textebrut)]</strong>
+			<ul>
+				<BOUCLE_town_section(RUBRIQUES){tout}{id_parent=21}{par num titre}{lang_select=non}{'
+				'}><BOUCLE_list_town(ARTICLES){branche}{0,1}{lang}><li><a href="?town=#_town_section:TITRE" class="active">[(#_town_section:TITRE|strtolower|ucfirst)]</a></li></BOUCLE_list_town><li><a href="#">[(#_town_section:TITRE|strtolower|ucfirst)] <em>(<:soon:>)</em></a></li><//B_list_town></BOUCLE_town_section>
+			</ul>
+		</div>
+
+		[(#REM) *****
+				SEPARATOR
+				*****
+		]<div class="separator item"></div>
+
+		[(#REM) *****
+				STORE LIST
+				*****
+		]<nav id="store_list" class="item box">
+			<strong>[(#TEXTE|textebrut)]</strong>
+			<ul>
+				<BOUCLE_ville_section(RUBRIQUES){tout}{titre LIKE %store%}{titre LIKE %#ENV{priville}%}{lang_select=non}{0,1}{'
+				'}><BOUCLE_list_ville(ARTICLES){id_rubrique}{lang}{0,4}{par hasard}><li><a href="#URL_ARTICLE">#TITRE</a></li></BOUCLE_list_ville></BOUCLE_ville_section>
+			</ul>
+		</nav>
+
+		[(#REM) *****
+				SEPARATOR
+				*****
+		]<div class="separator item"></div>
+
+		[(#REM) *****
+				TAG LIST
+				*****
+		]<div id="tag_list" class="item box">
+			<strong>[(#PS|textebrut)]</strong>
+			<ul>
+                <BOUCLE_list_tags(MOTS){id_groupe=4}{'
+                '}{par hasard}><li><a href="#">#DESCRIPTIF</a></li></BOUCLE_list_tags>
+            </ul>
+		</div>
+
+		[(#REM) *****
+				SEPARATOR
+				*****
+		]<div class="separator item"></div>
+
+		[(#REM) *****
+				MEMBERSHIP
+				*****
+		]<div id="footer_membership" class="item box">
+			<strong>[(#SOUSTITRE|textebrut)]</strong>
+			<a href="<BOUCLE_membership_link(ARTICLES){id_rubrique=13}{lang}{0,1}{!par date}>#URL_ARTICLE</BOUCLE_membership_link>" id="footer_card_link">
+				<BOUCLE_pic_card(DOCUMENTS){id_article}{0,1}{doublons}><img src="#URL_DOCUMENT" alt="#DESCRIPTIF" class="membershipCard"></BOUCLE_pic_card>
+			</a>
+		</div></BOUCLE_contact_infos>
+
+		[(#REM) *****
+                COPYRIGHT
+                *****
+        ]<div id="legals">
+			[(#MAINTENANT{'Y'})] &copy; CILERE Digital Strategy<B_legalslink> - <BOUCLE_legalslink(ARTICLES){id_rubrique=46}{lang}{par num titre}{statut IN publie}{' - '}><a href="#URL_ARTICLE">#TITRE #SOUSTITRE</a></BOUCLE_legalslink> - <:copyrightdes:> : <a href="#" target="_blank" rel="external">Clémentine Damolini</a> - <:copyrightdev:> :  <a href="#" target="_blank" rel="external">Certifié Conforme</a> - <a href="https://validator.w3.org/nu/?doc=[(#ENV{site_root}|urlencode)/][(#ENV{page}|!={'home'}|?{[(#URL_ARTICLE|urlencode)],''})]" target="_blank" rel="external">W3C Valid</a>
+		</div>
+
+	</footer>
+
+    [(#REM) APP LINK MANAGEMENT]
+    <BOUCLE_desktop(CONDITION){si #ENV{realdevice}|=={'desktop'}}><BOUCLE_textChooseApp(ARTICLES){id_rubrique=45}{lang}><div class="hidden">
+        <div id="appLinkFull">
+            <mark class="romina">
+                #TITRE
+                <strong class="farnham">#SOUSTITRE</strong>
+            </mark>
+            <BOUCLE_links(ARTICLES){id_rubrique=28}{lang}{'
+            '}><span>
+                [(#URL_SITE**|non)#SOUSTITRE<br>]<a href="[(#URL_SITE**|sinon{'#'})]" target="_blank" rel="external"><BOUCLE_image(DOCUMENTS){id_article}><img src="#URL_DOCUMENT" alt="#_links:TITRE"></BOUCLE_image></a>
+            </span></BOUCLE_links>
+        </div>
+    </div></BOUCLE_textChooseApp></BOUCLE_desktop><BOUCLE_linkAppMobile(ARTICLES){id_rubrique=28}{!titre LIKE %ios%}{lang}><div class="hidden"><div id="noApp">#SOUSTITRE</div></div></BOUCLE_linkAppMobile><//B_desktop>

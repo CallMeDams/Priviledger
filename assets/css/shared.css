@@ -1,0 +1,243 @@
+/* #################### */
+/* CUSTOM SHARED STYLES */
+/* #################### */
+
+/********************/
+/* TABLE OF CONTENT */
+/********************/
+/*
+	1. FOOTER
+		1a. Downloads
+		1b. Legals
+    2. APPLINK POPIN
+*/
+
+/*************/
+/* 1. FOOTER */
+/*************/
+footer{
+	margin-top: 120px;
+	text-align:center;
+	font-size: 0.75rem
+}
+	footer #download{
+		width: 100%;
+		margin-bottom:70px;
+		padding:0 -webkit-calc( (100% - 900px) / 2 );
+		padding:0 calc( (100% - 900px) / 2 );
+		background:#1d1626 url("../../medias/imports/trame_background_footer_download.png") no-repeat center center
+	}
+/* ***** HOVER ***** */
+        footer #download .downloadsmallblock a:hover{
+            background-color:@lightpink;
+            color:@write
+        }
+		.blackwrap{
+			color:white;
+			padding:30px;
+			background-color:#1d1626 
+		}
+    
+    /* 1a. Downloads */
+    /*---------------*/
+    footer .title{
+		width: 100%;
+		margin-bottom:10px;
+		font-size:1.5rem;
+        padding:10px;
+        position: relative;
+		text-transform: uppercase;
+    }
+		footer .title strong{
+            display: inline-block;
+			padding: 5px 20px
+		}
+            footer .title img{
+                width:80px;
+                height:80px;
+                object-fit:contain;
+                display:block;
+                margin: 0 auto 20px
+            }
+            #applink_container img{
+                height: 50px;
+                width: auto;
+                display: block
+            }
+		footer#download .title strong, #applink_container{
+			color:white;
+			text-transform: uppercase;
+            display: inline-block;
+            padding: 0 20px 10px
+		}
+        #applink_container{
+            padding:0
+        }
+		footer#wording .title strong{
+			color:white;
+			text-transform: uppercase;
+		}
+
+	/* 1b. Four columns */
+    /*------------------*/
+
+		.full{
+			width:100%
+		}
+		.separator{
+			width: 1px;
+			overflow: hidden;
+			background-color:#d3d1d4;
+			margin: 0 20px;
+			padding: 10px 0;
+		}
+		.box{
+			width: 150px
+		}
+			.box strong{
+				text-transform: uppercase;
+				font-weight: 700;
+				color:@write;
+				margin-bottom:20px;
+				height:22px;
+				display: block;
+				line-height:1rem;
+				padding: 0 20px;
+			}
+			.box a{
+				color:@write
+			}
+			#contact_informations img, .box img{
+				display:block;
+				max-width:100%
+			}
+
+		/* a. Contact informations */
+		#contact_informations{
+			width: 200px;
+			text-transform: uppercase
+		}
+			#contact_informations a{
+				display: inline-block
+			}
+				.lasts.blue{
+					color:blue;
+					text-decoration: underline;
+				}
+			#footer_logo{
+				margin-bottom: 10px;
+			}
+			#footer_app_link{
+				margin-bottom:20px;
+			}
+			.lasts{
+				color:@write;
+				margin-bottom:10px;
+			}
+		
+		/* b. Town list */
+		#town_list{
+			text-transform:none;
+		}
+			#town_list.box a{
+				color:#9d99a0;
+			}
+			#town_list.box a.active{
+				color:@write
+			}
+
+		/* c. Membership */
+		img.membershipCard{
+			border-radius:2px;
+			-webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.4);
+			-moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.4);
+			box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.4);
+		}
+
+    /* 1c. Legals */
+    /*------------*/
+    #legals{
+		width: 100%;
+		margin-top:50px;
+		padding-bottom:20px;
+    }
+		#legals a{
+			color:@write
+		}
+/* ***** HOVER ***** */
+		#legals a:hover{
+			text-decoration: underline
+		}
+
+/********************/
+/* 2. APPLINK POPIN */
+/********************/
+#appLinkFull{
+    text-align:center;
+    padding:40px 40px 10px 
+}
+    #appLinkFull mark{
+        display: block;
+        margin: 10px 0 20px;
+        font-size:1.5rem;
+        text-transform: uppercase;
+        background-color: transparent
+    }
+        #appLinkFull mark strong{
+            display: block;
+            font-size:0.9rem;
+            text-transform: none;
+            margin-top: 2px;
+            color: @blue
+        }
+    #appLinkFull span{
+        display: block;
+        margin: 10px
+    }
+    
+/* *********************************** */
+/* ***** RESPONSIVE BREAK POINTS ***** */
+/* *********************************** */
+
+/* ---------- MOBILE, PHABLET AND TABLET ---------- */
+@media screen and (max-width:1299px){}
+
+/* ---------- MOBILE, PHABLET AND TABLET PORTRAIT ---------- */
+@media screen and (max-width:799px), screen and (min-width:800px) and (max-width:1299px) and (orientation:portrait){
+	footer{
+		margin-top:50px;
+		padding: 90px 0 70px
+	}
+			footer #download .title strong{
+				line-height:2rem;
+				display: block
+			}
+        .box strong{
+            margin-bottom:15px;
+            height:auto
+        }
+		.separator{
+			width: 90%;
+			height: 1px;
+			padding: 0;
+			margin: 20px auto;
+		}
+        #legals{
+            padding: 0 20px 20px
+        }
+		#legals a:hover{
+			text-decoration:none
+		}
+}
+
+/* ---------- MOBILE AND PHABLET ---------- */
+@media screen and (max-width:410px){}
+
+/* ---------- SMALL DESKTOP AND TABLET LANDSCAPE ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:landscape){}
+
+/* ---------- TABLET PORTRAIT ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:portrait){}
+
+/* ---------- BIG DESKTOP ---------- */
+@media screen and (min-width:1500px){}

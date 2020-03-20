@@ -1,0 +1,167 @@
+<BOUCLE_article_principal(ARTICLES){id_article}{lang_select=non}{0,1}>[
+	(#REM)  *****
+			HEAD CSS AND JS INCLUSION : AUTOMATIC DETECTION FOR BASIS AND USEFUL ONLY CSS AND JS FILES
+			*****
+	]<INCLURE{fond=models/head}{env}{id_article}{page=page}{type=website}>
+
+    <!--INITCSS()-->
+</head>
+
+<body id="page" class="[(#ENV{device})][(#ENV{mandatory}|=={1}|?{' mandatory',''})]" data-addon="incSwiper">
+
+	[(#REM) *****
+			HEADER INCLUDE
+			*****
+	]<INCLURE{fond=imports/header,page=page}{env}{id_article}>
+
+
+    [(#REM) *****
+			HOME H1 WITH BACKGROUND IMAGE
+			To change the image. Go in the backoffice :
+				HOME PAGE > Article > Change image linked
+			*****
+	]<div id="onecard_header" class="fullBack Top flex fxjc" style="background-image:url(<BOUCLE_back_h1(DOCUMENTS){id_article}{extension==jpg|gif|png}{0,1}>[(#ENV{device}|!={'phone'}|?{#URL_DOCUMENT,[(#LOGO_DOCUMENT|fichier|sinon{[(#FICHIER|image_passe_partout{600,600}|image_recadre{600,600,center}|inserer_attribut{class,backimage})]})]})]</BOUCLE_back_h1>)">
+		
+		[(#REM) *****
+				ANIMATED CARDS
+				*****
+		]<div id="onecard">
+
+			[(#REM) *****
+					CARD CONTENT
+					???? 
+					*****
+			]<BOUCLE_cards(ARTICLES){id_rubrique=14}{par hasard}{lang}{0,1}{'
+			'}><div class="animCard">
+				<div id="card#COMPTEUR_BOUCLE" class="card">
+					<div class="content flex fxjc">
+						<h2 class="romina">
+							#TITRE
+							<strong class="farnham">#SOUSTITRE</strong>
+						</h2>
+						<div class="chapo">
+							#CHAPO
+						</div>
+						<a #SESSION{appLinkFull} class="link">[(#NOM_SITE|sinon{<:reserveapp:>})]</a>
+					</div>
+				</div>
+			</div></BOUCLE_cards>
+
+		</div>
+		
+	</div>
+	
+	[(#REM) *****
+			PARTNERS
+			To change the title. Go to the backoffice :
+				HOME PAGE > PARTNERS SECTION > Modify the article
+			*****
+	]<section id="partners" class="page_content">
+	
+		<h1 class="romina">
+			#TITRE[<br>(#SOUSTITRE)]
+			<strong class="farnham">[(#CHAPO|textebrut)]</strong>
+		</h1>[
+		
+		<div class="baseline">
+			(#TEXTE|textebrut)
+		</div>]
+		
+		<BOUCLE_partners_section(RUBRIQUES){tout}{titre LIKE %store%}{titre LIKE %#ENV{priville}%}{lang_select=non}{0,1}><div id="partners_container" class="flex fxjb">
+		
+			[(#REM) *****
+					PARTNERS LINK
+					*****
+			]<BOUCLE_partners(ARTICLES){id_rubrique}{par hasard}{lang}{0,4}{'
+			'}><a href="#URL_ARTICLE" class="partner">
+				<BOUCLE_partnet_img(DOCUMENTS){id_article}{extension==jpg|png|gif}{titre LIKE %thumb%}{0,1}><img src="#URL_DOCUMENT" alt="[(#_cards:SURTITRE) ]#_cards:TITRE" class="block"></BOUCLE_partnet_img>
+				<strong class="flex fxjc fxac romina"><span>#TITRE</span></strong>
+			</a></BOUCLE_partners>
+		
+		</div></BOUCLE_partners_section>
+		
+		<!--<a href="#URL_SITE" class="vmore">#NOM_SITE ></a>-->
+	
+	</section>
+
+	[(#REM) *****
+			TITLE BLOCK #2
+			To change the title. Go to the backoffice :
+				HOME PAGE > Modify the article (TEXTE)
+			*****
+	][<div class="blocktitre center">
+	
+		<div class="flex fxjc fxac romina">
+			(#TEXTE)
+		</div>
+		
+	</div>]
+
+	[(#REM) *****
+			PLACES AND SERVICES
+			To change the title. Go to the backoffice :
+				HOME PAGE > PLACES AND SERVICES > Modify the article
+			*****
+	]<BOUCLE_items_carousel(ARTICLES){id_rubrique=48}{0,1}{lang}><section class="popular_carousel animated" data-anim-options="fadeInUp">
+	
+		<h4 class="romina">
+			#TITRE[<br>(#SOUSTITRE)]
+			<strong class="farnham">[(#CHAPO|textebrut)]</strong>
+		</h4>[
+		
+		<div class="baseline">
+			(#TEXTE|textebrut)
+		</div>]
+		
+		<BOUCLE_places_section(RUBRIQUES){tout}{titre LIKE %product%}{titre LIKE %#ENV{priville}%}{lang_select=non}{0,1}><div id="FirstItemsCarousel" class="popular_container flex fxjc">
+		
+			<div class="swiper-wrapper popularSwipper">
+			
+				[(#REM) *****
+						ITEMS CONTAINER
+						To change carousel items. Go to the backoffice :
+							HOME PAGE -------
+						*****
+				]<BOUCLE_places(ARTICLES){id_rubrique}{lang}{'
+				
+				'}><div class="swiper-slide item">
+					<a href="#URL_ARTICLE">
+						<BOUCLE_thumb1(DOCUMENTS){id_article}{titre LIKE %thumb%}><img src="#URL_DOCUMENT" alt="#DESCRIPTIF"></BOUCLE_thumb1>
+						<span class="content flex fxjc fxac">
+							<strong class="farnham">
+								#TITRE
+								<em>#SOUSTITRE</em>
+							</strong>
+						</span>
+					</a>
+				</div></BOUCLE_places>
+			
+			</div>
+		
+		</div>
+		
+		<div class="carousel_nav">
+
+			[(#REM) *****
+					DRAG BAR
+					*****
+			]<div id="firstScroll" class="swiper-scrollbar"></div>
+
+		</div></BOUCLE_places_section>
+	
+	</section></BOUCLE_items_carousel>
+
+    [(#REM) *****
+			FOOTER INCLUDE
+			*****
+	]<INCLURE{fond=imports/footer,page=page}{env}{id_article}>
+
+
+	[(#REM) *****
+			LEGAL, CSS AND JS ADDONS MANAGEMENT
+			*****
+	]<INCLURE{fond=models/addons,addon=ending}{env}{id_article}{page=page.widgets}>
+
+
+</body>
+</html></BOUCLE_article_principal>

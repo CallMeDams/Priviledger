@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paquet
+	prefix="cc"
+	categorie="divers"
+	version="1.0.0"
+	etat="dev"
+	compatibilite="[3.0.0;3.2.*]"
+	logo="prive/themes/spip/images/certifie_conforme-32.png"
+	meta="cc"
+>
+	<nom>Certifié Conforme</nom>
+	<auteur lien="http://www.certifie-conforme.com/">Damien VIROT</auteur>
+	<licence lien="http://www.gnu.org/licenses/gpl-3.0.html">GNU/GPL</licence>
+	<copyright>2015</copyright>
+	<pipeline nom="autoriser" inclure="cc_autorisations.php" />
+	<pipeline nom="header_prive" action="insert_head_prive" inclure="cc_pipelines.php" />
+	<pipeline nom="pre_typo" action="clean_typo" inclure="cc_pipelines.php" />
+	<pipeline nom="affichage_final" action="clean_page" inclure="cc_pipelines.php" />
+</paquet>

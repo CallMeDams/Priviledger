@@ -1,0 +1,132 @@
+#HTTP_HEADER{Content-Type:application/javascript;charset=#CHARSET}
+[(#REM) *****
+		AUTO HEIGHT FOR TinyMCE EDIT AREAS FROM Porte Plume SPIP PLUGIN
+		*****
+]function barre_forcer_hauteur () {
+	$(".tiny_editor").each(function() {
+		var hauteur_min = $(this).height();
+		var hauteur_max = parseInt($(window).height()) - 200;
+		var hauteur = hauteur_min;
+		var signes = $(this).val().length;
+		if (signes){
+			/* en gros: 400 signes donnent 100 pixels de haut */
+			var hauteur_signes = Math.round(signes / 4) + 50;
+			if (hauteur_signes > hauteur_min && hauteur_signes < hauteur_max) 
+				hauteur = hauteur_signes;
+			else 
+				if (hauteur_signes > hauteur_max) 
+					hauteur = hauteur_max;
+			$(this).height(hauteur);
+		}
+	});
+}
+[(#REM) *****
+		INIT TINYMCE
+		*****
+]function TinyMCE_init(){
+	[(#REM) *****
+			TRANSFORM label WITH h3.legend - GREATEST READABILITY
+			*****
+	]$('.editer_chapo label, .editer_texte label, .editer_ps label').each(function(){
+		$(this).replaceWith('<h3 class="legend"><strong>'+$(this).html()+'</strong></h3>');
+	});
+	[(#REM) *****
+			ADD CLASS FOR TinyMCE EDITABLE ELEMENTS
+			*****
+	]$('.editer_chapo #chapo, .editer_texte #text_area, .editer_ps #ps').addClass('tiny_editor');
+	[(#REM) *****
+			AUTO HEIGHT FUNCTION INIT
+			*****
+	]barre_forcer_hauteur();
+	[(#REM) *****
+			TinyMCE CONFIG
+			*****
+	]tinymce.init({
+		[(#REM)	*****
+				EDITABLE ELEMENT CLASS SELECTOR
+				*****
+		]selector:		".tiny_editor",
+		[(#REM)	*****
+				LANGUAGE FOR EDITOR
+				*****
+		][language:		"(#LANG|!={'fr'}|?{'','fr_FR'})]",
+		[(#REM)	*****
+				NO RESIZE FOR EDITABLES AREAS - BUG IF BECOME TOO LARGE BY MISTAKE
+				*****
+		]resize: 		false,
+		[(#REM)	*****
+				DEFAULT THEME FOR TinyMCE
+				*****
+		]theme:			"modern",
+		[(#REM)	*****
+				ADVANCE TAB ON FOR IMAGE INSERTION
+				*****
+		]image_advtab: 	true,
+		[(#REM) *****
+				PLUGINS CONFIGURATION
+				  visual = show tables limits for exemple
+				  visualblocks = show blocks like p, div...
+				*****
+		]plugins: [
+			"advlist autolink lists link image charmap hr anchor pagebreak",
+			"searchreplace wordcount visualblocks visualchars code fullscreen",
+			"insertdatetime media nonbreaking table contextmenu",
+			"template paste textcolor colorpicker textpattern"
+		],
+		visual:			true,
+		visualblocks_default_state:	true,
+		[(#REM)	*****
+				TOOLBARS CONFIGURATION
+				*****
+		]toolbar1:		"bold italic | alignleft aligncenter alignright | bullist numlist outdent indent | styleselect | forecolor backcolor",
+		toolbar2:		"insertfile | searchreplace | link unlink image media | insertdatetime charmap hr | template | fullscreen",
+		[(#REM)	*****
+				MENU BAR CONFIGURATION
+				*****
+		]menu:			{
+			edit   : {title : 'Edit'  , items : 'undo redo | cut copy paste pastetext | selectall'},
+			format : {title : 'Format', items : 'underline strikethrough superscript subscript | removeformat'},
+			table  : {title : 'Table' , items : 'inserttable tableprops deletetable | cell row column'},
+			tools  : {title : 'Tools' , items : 'code'}
+		},[(#REM)	*****
+					CUSTOM STYLES
+					*****
+		]style_formats:	[
+			{title: "Headers", items: [
+				{title: "Header 2", format: "h2"},
+				{title: "Header 3", format: "h3"},
+				{title: "Header 4", format: "h4"},
+				{title: "Header 5", format: "h5"},
+				{title: "Header 6", format: "h6"}
+			]},
+			{title: "Inline", items: [
+				{title: "Underline", icon: "underline", format: "underline"},
+				{title: "Strikethrough", icon: "strikethrough", format: "strikethrough"},
+				{title: "Superscript", icon: "superscript", format: "superscript"},
+				{title: "Subscript", icon: "subscript", format: "subscript"},
+				{title: "Code", icon: "code", format: "code"}
+			]},
+			{title: "Blocks", items: [
+				{title: "Blockquote", format: "blockquote"}
+			]},
+			{title: "Alignment", items: [
+				{title: "Justify", icon: "alignjustify", format: "alignjustify"}
+			]}
+		],[(#REM)	*****
+					ADD .clear BUTTON
+					*****
+		]/*setup : function(ed) {
+			// Add a custom button
+			ed.addButton('clearbutton', {
+				title : 'Clear Break',
+				image : '../imports/core/rte_clear.gif',
+				onclick : function() {
+					// Add you own code to execute something on click
+					ed.focus();
+					ed.selection.setContent('<div class="clear_in">&nbsp;</div>');
+				}
+			});
+		},*/
+	});
+	//alert('rsys');
+}

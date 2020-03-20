@@ -1,0 +1,128 @@
+<BOUCLE_article_principal(ARTICLES){id_article}{lang_select=non}{0,1}>[
+	(#REM)  *****
+			HEAD CSS AND JS INCLUSION : AUTOMATIC DETECTION FOR BASIS AND USEFUL ONLY CSS AND JS FILES
+			*****
+	]<INCLURE{fond=models/head}{env}{id_article}{page=page}{type=website}>
+
+    <!--INITCSS()-->
+</head>
+
+<body id="page" class="[(#ENV{device})][(#ENV{mandatory}|=={1}|?{' mandatory',''})]" data-addon="fa-">
+
+	[(#REM) *****
+			HEADER INCLUDE
+			*****
+	]<INCLURE{fond=imports/header,page=page}{env}{id_article}>
+
+
+    [(#REM) *****
+			MAIN TEXT
+			*****
+	]<h1 class="romina">#SET{idStore,#BRANDS_PARIS|explode{'|'}|table_valeur{1}}
+		<strong>#TITRE</strong><BOUCLE_linkStore(ARTICLES){id_article=#GET{idStore}}>
+        <em><a href="#URL_ARTICLE">#TITRE</a></em></BOUCLE_linkStore>[
+		<em>(#SOUSTITRE)</em>]<//B_linkStore>
+	</h1>
+	
+	[(#REM) *****
+			MAIN PAGE CONTENT
+			*****
+	]<div id="page_content" class="flex [(#SIDE_DETAILS_ON|=={'on'}|?{'fxjb','fxjc'})]">
+	
+		<div id="prez" class="maintext">
+		
+			#CHAPO<B_images_1x>
+
+			<BOUCLE_images_1x(DOCUMENTS){id_article}{titre==^[1]}{par num titre, titre}{doublons}{'
+			
+			'}><img	src="#URL_DOCUMENT" alt="#DESCRIPTIF"></BOUCLE_images_1x>[
+			
+			(#TEXTE)]<B_images_2x>
+
+			<BOUCLE_images_2x(DOCUMENTS){id_article}{titre==^[2]}{par num titre, titre}{doublons}{'
+			
+			'}><img	src="#URL_DOCUMENT" alt="#DESCRIPTIF"></BOUCLE_images_2x>[
+			
+			(#PS)]<B_images_3x>
+
+			<BOUCLE_images_3x(DOCUMENTS){id_article}{titre==^[3]}{par num titre, titre}{doublons}{'
+			
+			'}><img	src="#URL_DOCUMENT" alt="#DESCRIPTIF"></BOUCLE_images_3x>
+
+		</div><BOUCLE_aside(CONDITION){si #SIDE_DETAILS_ON|=={'on'}}>
+		
+		<aside>
+		
+			[<div class="side_pre_link maintext">
+				(#SIDE_PRE_LINK)
+			</div>
+			
+			]<BOUCLE_sidelink(CONDITION){si #SIDE_LINK|=={'on'}}><div class="downloadsmallblock">
+                <a #SESSION{appLinkFull}>
+                    <img src="medias/imports/download_app_icon_circle.png" alt="#NOM_SITE">				
+                    <em><:toreserveapp:></em>
+                </a>
+            </div>
+			
+			<div class="note farnham">
+				<multi>[en]Now available for pickup in France<br>RSVP NOW![zh]现在可在法国取货<br>现在回复！</multi>
+			</div>
+			
+			</BOUCLE_sidelink>[<div class="subcontent maintext down">
+				<a href="#" rel="nofollow">
+					<strong>(#DOWN_LINK_1)</strong>
+				</a>
+				<div class="content">
+					#DOWN_TEXT_1
+				</div>
+			</div>][
+			<div class="subcontent maintext">
+				<a href="#" rel="nofollow">
+					<strong>(#DOWN_LINK_2)</strong>
+					
+				</a>
+				<div class="content">
+					#DOWN_TEXT_2
+				</div>
+			</div>][
+			<div class="subcontent maintext">
+				<a href="#" rel="nofollow">
+					<strong>(#DOWN_LINK_3)</strong>
+					
+				</a>
+				<div class="content">
+					#DOWN_TEXT_3
+				</div>
+			</div>]
+			<? $parent='#TITRE_PARENT'; if(substr_count(strtolower($parent),'product')>0) { ?>
+			<div class="subcontent maintext">
+				<a href="#" rel="nofollow">
+					<strong><multi>[fr]Information de paiement[zh]付款信息</multi></strong>
+				</a>
+				<div class="content">
+					<multi>
+						[fr]Priviledger.net accepte le paiement par carte bancaire (Visa, Visa Electron, Mastercard et Carte Bleue) ou via le site de paiement sécurisé Alipay et WeChat Pay.
+						[zh]Priviledger.net接受信用卡（Visa，Visa Electron，Mastercard和Carte Bleue）或安全支付网站支付宝和微信支付。
+					</multi>
+				</div>
+			</div>
+			<? } ?>
+		
+		</aside></BOUCLE_aside>
+	
+	</div>
+
+    [(#REM) *****
+			FOOTER INCLUDE
+			*****
+	]<INCLURE{fond=imports/footer,page=page}{env}{id_article}>
+
+
+	[(#REM) *****
+			LEGAL, CSS AND JS ADDONS MANAGEMENT
+			*****
+	]<INCLURE{fond=models/addons,addon=ending}{env}{id_article}{page=page.product.profile}>
+
+
+</body>
+</html></BOUCLE_article_principal>

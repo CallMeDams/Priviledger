@@ -1,0 +1,257 @@
+<BOUCLE_article_principal(ARTICLES){id_rubrique=2}{lang}{!par date}{0,1}>[
+	(#REM)  *****
+			HEAD CSS AND JS INCLUSION : AUTOMATIC DETECTION FOR BASIS AND USEFUL ONLY CSS AND JS FILES
+			*****
+	]<INCLURE{fond=models/head,page=home,favcolor=#1d1626,type=website}{env}{id_article}>
+
+    <!--INITCSS()-->
+</head>
+
+<body id="home" class="[(#ENV{device})][(#ENV{mandatory}|=={1}|?{' mandatory',''})]" data-addon="incSwiper">
+
+	[(#REM) *****
+			HEADER INCLUDE
+			*****
+	]<INCLURE{fond=imports/header,page=home}{env}{id_article}>
+
+
+	[(#REM) *****
+			HOME H1 WITH BACKGROUND IMAGE
+			To change the image. Go in the backoffice :
+				HOME PAGE > Click on the article > Change the image linked to the article
+			*****
+	]<h1 class="fullBack flex fxjc romina" style="background-image:url(<BOUCLE_back_h1(DOCUMENTS){id_article}{extension==jpg|gif|png}{0,1}>[(#ENV{device}|!={'phone'}|?{#URL_DOCUMENT,[(#LOGO_DOCUMENT|fichier|sinon{[(#FICHIER|image_passe_partout{600,600}|image_recadre{600,600,center}|inserer_attribut{class,backimage})]})]})]</BOUCLE_back_h1>)">
+		<strong>#TITRE</strong>
+		<em class="farnham">[(#SOUSTITRE|trim)][ (#ENV{priville}|strtolower|ucfirst)]</em>
+	</h1>
+
+	[(#REM) *****
+			CARDS CAROUSEL
+			*****
+	]<section id="card_carousel" class="flex fxjc">
+		
+		[(#REM) *****
+				ANIMATED CARDS
+				*****
+		]<div id="cards">
+        
+        [(#ENV{device}|=={'phone'}|oui)<div class="swiper-wrapper">]
+
+			[(#REM) *****
+					CARDS CONTENT
+					To change this content. Go to the backoffice :
+						HOME PAGE > CAROUSEL CARDS SECTION > Change or add articles. Only 3 cards sort from newest to oldest will be showned.
+					*****
+			]<BOUCLE_cards(ARTICLES){id_rubrique=14}{par date}{inverse}{lang}{0,3}{'
+			'}><div id="card#COMPTEUR_BOUCLE" class="card card#COMPTEUR_BOUCLE[(#ENV{device}|=={'phone'}|oui)swiper-slide]">
+				<div class="content flex fxjc">
+					<h2 class="romina">
+						#TITRE[
+						<strong class="farnham">(#SOUSTITRE)</strong>]
+					</h2>[
+					<div class="chapo">
+						(#CHAPO|couper{220})
+					</div>]
+					<BOUCLE_applink(ARTICLES){id_rubrique=28}{titre LIKE %ios%}{lang}{0,1}><a #SESSION{appLinkFull} class="link">[(#NOM_SITE**|sinon{<:reserveapp:>})]</a></BOUCLE_applink>
+				</div>
+			</div></BOUCLE_cards>
+        
+        [(#ENV{device}|=={'phone'}|oui)</div>]
+
+		</div>
+
+        [(#ENV{device}|=={'phone'}|oui)<div id="cardPagination" class="swiper-pagination"></div>]
+
+		[(#REM) *****
+				PREV LINKS
+				*****
+		]<div class="nav prevLink flex fxjc fxac">
+			<a href="#prev" class="prev" rel="nofollow"><i class="fal fa-chevron-left"></i></a>
+		</div>
+		[(#REM) *****
+				NEXT LINKS
+				*****
+		]<div class="nav nextLink flex fxjc fxac">
+			<a href="#next" class="next" rel="nofollow"><i class="fal fa-chevron-right"></i></a>
+		</div>
+		
+	</section>
+
+	[(#REM) *****
+			ONE TO FOUR COLUMNS SECTION
+			To change the title and the text. Go to the backoffice :
+				HOME PAGE > ONE TO FOUR COLUMNS SECTION > Modify the article
+			*****
+	]<BOUCLE_col3(ARTICLES){id_rubrique=15}{lang}{0,1}><div id="columns">
+
+		<h3 class="romina">#TITRE[<br>(#SOUSTITRE)]</h3>[
+
+		<div class="chapo">
+			(#CHAPO)
+		</div>]
+
+		<div class="flex fxja">
+			[(#REM) *****
+					ONE TO FOUR COLUMNS CONTENT
+					To change the 3 columns content. Go to the backoffice :
+						HOME PAGE > ONE TO FOUR COLUMNS SECTION > Change or add image linked to the article and update Title and Description
+					*****
+			]<BOUCLE_columns(DOCUMENTS){id_article}{extension==gif|png|gif|jpg|svg}{0,4}{par num titre}{'
+			'}><div class="column animated" data-anim-options="fadeInUp">
+				<img src="#URL_DOCUMENT" alt="#TITRE">
+				<strong>[(#TITRE|replace{'/','<br>'})]</strong>
+				<div class="descriptif farnham">
+					#DESCRIPTIF
+				</div>
+			</div></BOUCLE_columns>
+		</div>
+
+	</div></BOUCLE_col3>
+
+	[(#REM) *****
+			FULL WIDTH IMAGE
+			To change the title. Go to the backoffice :
+				HOME PAGE > MOBILE IMAGE SECTION > Modify the article
+			*****
+	]<BOUCLE_fullwidth(ARTICLES){id_rubrique=19}{lang}{0,1}><div id="fullwidth">
+
+		<h3 class="romina">#TITRE[<br>(#SOUSTITRE)]</h3>[
+
+		<div class="chapo">
+			(#CHAPO)
+		</div>]
+		
+		[(#REM) *****
+				FULL WIDTH IMAGE
+				To change the 3 columns content. Go to the backoffice :
+					---
+				*****
+		]<BOUCLE_fullwidth_pic(DOCUMENTS){id_article}{extension==gif|png|gif|jpg|svg}{0,1}{'
+		'}><img src="[(#ENV{device}|!={'phone'}|?{#URL_DOCUMENT,[(#LOGO_DOCUMENT|fichier|sinon{[(#FICHIER|image_passe_partout{600,600}|image_recadre{600,600,center}|inserer_attribut{class,backimage})]})]})]" alt="#TITRE"></BOUCLE_fullwidth_pic>
+
+	</div></BOUCLE_fullwidth>
+
+	[(#REM) *****
+			SALES CAROUSEL
+			To change the title. Go to the backoffice :
+				HOME PAGE > SALES CAROUSEL SECTION > Modify the article
+			*****
+	]<BOUCLE_sales_carousel(ARTICLES){id_rubrique=16}{0,1}{lang}><section id="sales_carousel" class="animated" data-anim-options="fadeIn">
+	
+		<h4 class="romina">
+			[(#TITRE|trim)][ (#ENV{priville}|strtolower|ucfirst)][<br>(#SOUSTITRE)][
+			<strong class="farnham">(#CHAPO|textebrut)</strong>]
+		</h4>[
+		
+		<div class="baseline">
+			(#TEXTE|textebrut)
+		</div>]
+		
+		<div id="sales_container" class="flex fxjb fxac">
+		
+			[(#REM) *****
+					SALES CONTAINER
+					To change carousel items. Go to the backoffice :
+						HOME PAGE ????????????????????
+					*****
+			]<div id="sales" class="swiper-wrapper salesSwipper">
+
+				<BOUCLE_sales(ARTICLES){id_rubrique=17}{par num titre}{lang}{0,3}{'
+				'}><div class="swiper-slide sale">
+					<BOUCLE_image_sale(DOCUMENTS){id_article}{extension==jpg|png|gif}{0,1}><a #SESSION{appLinkFull}><img src="#URL_DOCUMENT" alt="[(#_cards:SURTITRE) ]#_cards:TITRE" class="block"></a></BOUCLE_image_sale>
+					<a #SESSION{appLinkFull} class="content block flex fxjc fxac">
+						[<em class="romina"><span>(#SURTITRE|explode{'/'}|table_valeur{0})</span>[(#SURTITRE|explode{'/'}|table_valeur{1})]</em>
+						]<strong>#TITRE</strong>
+						#SOUSTITRE[
+						<br>(#CHAPO|textebrut)]
+					</a>
+				</div></BOUCLE_sales>
+				<div class="swiper-pagination"></div>
+
+			</div>
+			
+			[(#REM) *****
+					PREV LINKS
+					*****
+			]<div class="nav prevLink flex fxjc fxac">
+				<a href="#prev" class="prev" rel="nofollow"><i class="fal fa-chevron-left"></i></a>
+			</div>
+			[(#REM) *****
+					NEXT LINKS
+					*****
+			]<div class="nav nextLink flex fxjc fxac">
+				<a href="#next" class="next" rel="nofollow"><i class="fal fa-chevron-right"></i></a>
+			</div>
+		
+		</div>
+	
+	</section></BOUCLE_sales_carousel>
+	
+	[(#REM) *****
+			POPULAR ITEMS
+			To change the title. Go to the backoffice :
+				HOME PAGE > POPULAR ITEMS SECTION > Modify the article
+			*****
+	]<BOUCLE_items_carousel(ARTICLES){id_rubrique=48}{0,1}{lang}><section class="popular_carousel animated" data-anim-options="fadeInUp">
+	
+		<h4 class="romina">
+			#TITRE[<br>(#SOUSTITRE)]
+			<strong class="farnham">[(#CHAPO|textebrut)]</strong>
+		</h4>[
+		
+		<div class="baseline">
+			(#TEXTE|textebrut)
+		</div>]
+		
+		<BOUCLE_popular_section(RUBRIQUES){tout}{titre LIKE %product%}{titre LIKE %#ENV{priville}%}{lang_select=non}{0,1}><div id="FirstItemsCarousel" class="popular_container flex fxjc">
+		
+			<div class="swiper-wrapper popularSwipper">
+			
+				[(#REM) *****
+						ITEMS CONTAINER
+						To change carousel items. Go to the backoffice :
+							HOME PAGE > -----
+						*****
+				]<BOUCLE_popular(ARTICLES){id_rubrique}{lang}{'
+				
+				'}><div class="swiper-slide item">
+					<a href="#URL_ARTICLE">
+						<BOUCLE_thumb(DOCUMENTS){id_article}{titre LIKE %thumb%}><img src="#URL_DOCUMENT" alt="#DESCRIPTIF"></BOUCLE_thumb>
+						<span class="content flex fxjc fxac">
+							<strong class="farnham">
+								#TITRE
+								<em>#SOUSTITRE</em>
+							</strong>
+						</span>
+					</a>
+				</div></BOUCLE_popular>
+			
+			</div>
+		
+		</div>
+		
+		<div class="carousel_nav">
+
+			[(#REM) *****
+					DRAG BAR
+					*****
+			]<div id="firstScroll" class="swiper-scrollbar"></div>
+
+		</div></BOUCLE_popular_section>
+	
+	</section></BOUCLE_items_carousel>
+	
+	[(#REM) *****
+			FOOTER INCLUDE
+			*****
+	]<INCLURE{fond=imports/footer,page=home}{env}{id_article}>
+
+
+	[(#REM) *****
+			LEGAL, CSS AND JS ADDONS MANAGEMENT
+			*****
+	]<INCLURE{fond=models/addons,addon=ending}{env}{id_article}{page=home.widgets}>
+
+
+</body>
+</html></BOUCLE_article_principal>

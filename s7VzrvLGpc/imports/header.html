@@ -1,0 +1,118 @@
+[(#REM) *****
+		LOADER
+		*****
+]<div id="loader"><div class="flex fxjc fxac"><div class="lds-default"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div></div></div>
+    <script>
+        document.getElementById('loader').style.display="block";
+    </script>
+
+    [(#REM) *****
+			HEADER
+			*****
+	]<header>
+
+		[(#REM) *****
+				TOP BAR MENU
+				*****
+		]<div id="topbar" class="flex fxjb fxac">
+
+			[(#REM) *****
+					EXPLORE FRANCE
+					*****
+			]<div id="town_country" class="custom_select flex fxac">
+				[(#ENV{device}|=={'desktop'}|?{<:explore:>,<:exploreshort:>})]
+				<!--<select>
+					<option value="hide">Paris</option>
+					<option value="paris">Paris</option>
+					<option value="berlin">Berlin</option>
+					<option value="newyork">New-York</option>
+				</select>-->
+			</div>
+			
+			[(#REM) *****
+					AT RIGHT
+					*****
+			]<div class="flex">
+			
+				[(#REM) *****
+						MEMBERSHIP
+						*****
+				]<BOUCLE_membership_link(ARTICLES){id_rubrique=13}{lang}{0,1}{!par date}><a href="#URL_ARTICLE">[(#SURTITRE|sinon{#TITRE})]</a></BOUCLE_membership_link>
+
+				[(#REM) *****
+						LANGUAGES ON DESKTOP
+						*****
+				]<BOUCLE_lang_desktop(CONDITION){si #ENV{device}|=={'desktop'}}><div id="languages" class="custom_select">
+					<select>
+						<BOUCLE_article_principal(ARTICLES){id_article}><option value="https://www.priviledger.[(#LANG|=={'fr'}|?{'fr','cn'})]/[(#ENV{page}|=={'home'}|?{?lang=#LANG,''})][(#ENV{page}|!={'home'}|?{#URL_ARTICLE,''})]" selected>[(#LANG|replace{'zh','中文'})]</option>
+						<BOUCLE_trads(ARTICLES){traduction}{exclus}{'
+						'}><option value="https://www.priviledger.[(#LANG|=={'fr'}|?{'fr','cn'})]/[(#ENV{page}|=={'home'}|?{?lang=#LANG,''})][(#ENV{page}|!={'home'}|?{#URL_ARTICLE,''})]">[(#LANG|replace{'zh','中文'})]</option></BOUCLE_trads></BOUCLE_article_principal>
+					</select>
+				</div></BOUCLE_lang_desktop>
+			
+			</div>
+
+		</div>
+
+		[(#REM) *****
+				LANGUAGES ON PHONE
+				*****
+		]<BOUCLE_lang_phone(CONDITION){si #ENV{device}|=={'phone'}}><div id="languages" class="custom_select">
+			<select>
+				<BOUCLE_article_principal_phone(ARTICLES){id_article}><option value="https://www.priviledger.[(#LANG|=={'fr'}|?{'fr','cn'})]/[(#ENV{page}|=={'home'}|?{?lang=#LANG,''})][(#ENV{page}|!={'home'}|?{#URL_ARTICLE,''})]" selected>[(#LANG|replace{'zh','中文'})]</option>
+                <BOUCLE_trads_phone(ARTICLES){traduction}{exclus}{'
+                '}><option value="https://www.priviledger.[(#LANG|=={'fr'}|?{'fr','cn'})]/[(#ENV{page}|=={'home'}|?{?lang=#LANG,''})][(#ENV{page}|!={'home'}|?{#URL_ARTICLE,''})]">[(#LANG|replace{'zh','中文'})]</option></BOUCLE_trads_phone></BOUCLE_article_principal_phone>
+			</select>
+		</div></BOUCLE_lang_phone>
+
+		[(#REM) *****
+				LOGO AND MAIN NAV
+				*****
+		]<div id="main_nav" class="flex fxjc fxab">
+
+			[(#REM) *****
+					LOGO
+					*****
+			]<a href="#ENV{site_root}" id="logo">
+				<img src="medias/imports/logo_priviledger.svg" width="300" alt="#NOM_SITE_SPIP - [(#DESCRIPTIF_SITE_SPIP|textebrut)]">
+			</a>
+			
+			[(#REM) *****
+					NAV BURGER
+					*****
+			]<div id="burger-menu">
+				<div class="hamburger hamburger--spin js-hamburger">
+					<div class="hamburger-box">
+						<div class="hamburger-inner"></div>
+					</div>
+				</div>
+			</div>
+
+			[(#REM) *****
+					MAIN NAV
+					*****
+			]<nav id="main">
+				<ul class="flex fxjb">
+					[(#ENV{device}|=={'phone'}|oui)<li class="badge"><a href="#ENV{site_root}"><img src="medias/imports/badge.svg" alt="Priviledger"></a></li>]
+					<BOUCLE_home_link(ARTICLES){id_rubrique=2}{lang}{0,1}{!par date}><li><a href="#ENV{site_root}"[(#ENV{page}|=={'home'}|?{' class="active"',''})]><BOUCLE_titre(RUBRIQUES){id_rubrique=2}{lang_select=non}>#DESCRIPTIF</BOUCLE_titre></a></li>
+					<li class="separator">&nbsp;</li></BOUCLE_home_link>
+					<BOUCLE_navigation_section(RUBRIQUES){id_parent=9}{par num titre}{lang_select=non}{'
+					<li class="separator">&nbsp;</li>
+					'}><BOUCLE_navigation_link(ARTICLES){id_rubrique}{lang}{0,1}{!par date}><li><a href="#URL_ARTICLE"[(#EXPOSE|=={'on'}|?{' class="active"',''})]>[(#SURTITRE|sinon{#TITRE})]</a></li></BOUCLE_navigation_link> </BOUCLE_navigation_section>
+				</ul>
+			</nav>
+
+		</div>
+			
+    </header>
+    
+    [(#REM) APP LINK MANAGEMENT]
+    <BOUCLE_desktop(CONDITION){si #ENV{realdevice}|=={'desktop'}}>
+        #SESSION_SET{appLinkFull,'href="#" data-fancybox data-src="#appLinkFull"'}
+    </BOUCLE_desktop>
+        <BOUCLE_linkAppMobile(ARTICLES){id_rubrique=28}{titre LIKE %ios%}{si #ENV{os}|=={'ios'}}{lang}>
+            #SESSION_SET{appLinkFull,href="#URL_SITE**" target="_blank" rel="external"}
+        </BOUCLE_linkAppMobile>
+            #SESSION_SET{appLinkFull,'href="#" data-fancybox data-src="#noApp"'}
+        <//B_linkAppMobile>
+    <//B_desktop>

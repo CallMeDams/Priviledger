@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+	<BOUCLE_sitemap(ARTICLES){id_rubrique=2}{lang}{doublons}{'
+	'}><url>
+		<loc>#ENV{site_root}/[(#ID_ARTICLE|=={1})]</loc>
+		<lastmod>[(#DATE_MODIF|affdate{'Y-m-d'})]</lastmod>
+		<xhtml:link rel="alternate" hreflang="de" href="http://www.mon-domaine.com/deutsch/" />
+	</url>
+	<url>
+		<loc>http://mon-domaine.fr/page-a.html</loc>
+		<lastmod>[(#DATE_MODIF|affdate{'Y-m-d'})]</lastmod>
+		<xhtml:link rel="alternate" hreflang="de" href="http://www.mon-domaine.com/deutsch/" />
+	</url>
+</urlset>

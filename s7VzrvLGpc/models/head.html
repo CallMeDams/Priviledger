@@ -1,0 +1,50 @@
+<BOUCLE_article_principal(ARTICLES){id_article}{lang_select=non}><!doctype html>
+<html lang="#LANG" prefix="og: http://ogp.me/ns#">
+<head>
+	[(#REM)	*****
+			CHARACTER MAP
+			*****
+	]<meta charset="utf-8">
+	[(#REM) *****
+			TITLE
+			*****
+	]<title>[(#SURTITRE|sinon{#TITRE})][(#ENV{page}|=={'home'}|?{ - #TITRE,''})]<BOUCLE_titre(ARTICLES){id_rubrique=2}{lang}{!si #ENV{home}|!={'home'}}> - #SURTITRE</BOUCLE_titre></title>
+	[(#REM) *****
+			MOBILE VIEWPORT
+			*****
+	]<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+	[(#REM) *****
+			SEO META TAG
+			*****
+	]<meta name="description" content="[(#DESCRIPTIF|htmlspecialchars)]">
+	<link rel="canonical" href="#ENV{site_root}/[(#ENV{page}|=={'home'}|?{?lang=#LANG,''})][(#ENV{page}|!={'home'}|?{#URL_ARTICLE,''})]"><BOUCLE_traductions(ARTICLES){traduction}{exclus}{'
+	'}>
+	<link rel="alternate" hreflang="#LANG" href="#ENV{site_root}/[(#ENV{page}|=={'home'}|?{?lang=#LANG,''})][(#ENV{page}|!={'home'}|?{#URL_ARTICLE,''})]"></BOUCLE_traductions>
+	[(#REM) *****
+			OPEN GRAPH META TAG
+			*****
+	]<meta property="og:title" content="[(#SURTITRE|sinon{#TITRE})]">
+	<meta property="og:type" content="#ENV{type}">
+	<meta property="og:url" content="#ENV{site_root}/[(#ENV{page}|=={'home'}|?{[(#LANG|!={'en'}|?{#LANG,''})],''})][(#ENV{page}|!={'home'}|?{#URL_ARTICLE,''})]"><BOUCLE_ogimage(DOCUMENTS){id_article}{id_mot=1}>
+	<meta property="og:image" content="#ENV{site_root}/#URL_DOCUMENT"></BOUCLE_ogimage>
+    <meta property="og:image" content="#ENV{site_root}/android-chrome-512x512.png"><//B_ogimage>
+	<meta property="og:locale" content="#LANG[_(#LANG|strtoupper)]"><BOUCLE_traductions_og(ARTICLES){traduction}{exclus}{'
+	'}>
+	<meta property="og:locale:alternate" content="#LANG[_(#LANG|strtoupper)]"></BOUCLE_traductions_og>[
+	<meta property="og:description" content="(#DESCRIPTIF|htmlspecialchars)">]
+	[(#REM) *****
+			FAVICONS
+			*****
+	]<INCLURE{fond=models/addons,addon=favicon,color=#ENV{favcolor}}{env}>
+
+    [(#REM) *****
+			OTHER META TAGS
+			*****
+	]<meta name="format-detection" content="telephone=no">[(#ENV{robots}|=={0}|oui)
+	<meta name="robots" content="noindex,nofollow">][(#SESSION{statut}|=={'0minirezo'}|oui)
+	<meta name="admin" content="yes">][(#ENV{refresh}|=={1}|oui)
+	<meta name="refresh" content="yes">]</BOUCLE_article_principal>
+    [(#REM)  *****
+			ANALYTICS
+			*****
+	]<INCLURE{fond=models/addons,addon=analytics}{env}>

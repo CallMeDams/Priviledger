@@ -1,0 +1,6 @@
+<? $conf=require('off_config.php'); ?><div id='recaptcha<? echo uniqid(); ?>' class="g-recaptcha"
+									data-sitekey="<? echo $conf['client-key']; ?>"
+									data-badge="inline"
+									data-callback="onSubmit"
+									data-size="invisible"
+									style="-webkit-transform: scale(0.77);-ms-transform: scale(0.77);-o-transform: scale(0.77);transform: scale(0.77);-webkit-transform-origin:0 0;-moz-transform-origin:0 0;-ms-transform-origin:0 0;-o-transform-origin:0 0;"></div>

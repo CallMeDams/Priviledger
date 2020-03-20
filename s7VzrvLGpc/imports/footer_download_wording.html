@@ -1,0 +1,30 @@
+[(#REM) *****
+			DOWNLOAD APP CIRCLE LINK INCLUDE
+			*****
+	]<INCLURE{fond=imports/circle_link}>
+
+    <footer id="wording" class="flex fxjc">
+
+		<BOUCLE_wording(ARTICLES){id_rubrique=27}{lang}{0,1}><div class="title romina"><strong>#TITRE</strong></div>
+		
+		<div class="words">
+			Watches - Jewels - Bags - Tops - Coats - Dresses - Trousers - Shirts - Knitwears - Shoes - Accessories  decoration - lorem - Ispum Dolor - Sit amen - Home  - Trousers - Shirts
+		</div>
+
+		<div class="words">
+			Gucci - Cartier - Chaumet - Chanel - Dior - Hermes - Chloé - Gucci - Cartier - Hermes - Chloé - Chanel - Dior - Hermes - Chloé - Gucci - Cartier - Chaumet - Chanel - Dior- Chloé - Gucci 
+		</div></BOUCLE_wording>
+			
+		<a href="<BOUCLE_applink(ARTICLES){id_rubrique=28}{titre LIKE %ios%}{lang}{0,1}>#URL_SITE</BOUCLE_applink>" class="downloadsmallblock flex fxjb fxac">
+			<img src="medias/imports/download_app_icon_circle.png" alt="">				
+			<em><:toreserveapp:></em>
+		</a>
+
+		[(#REM) *****
+                COPYRIGHT
+                *****
+        ]<div id="legals">
+			[(#MAINTENANT{'Y'})] &copy; #NOM_SITE_SPIP<B_legalslink> - <BOUCLE_legalslink(ARTICLES){id_rubrique=64}{lang=fr}{par num titre}{statut IN publie}{' - '}><a href="#URL_ARTICLE">#TITRE #SOUSTITRE</a></BOUCLE_legalslink> - <:copyrightdes:> : <a href="#" target="_blank" rel="external">Clémence </a> - <:copyrightdev:> :  <a href="#" target="_blank" rel="external">Certifié Conforme</a> - <a href="https://validator.w3.org/nu/?doc=[(#ENV{site_root}|urlencode)/][(#ENV{page}|=={'home'}|?{[(#LANG|!={'en'}|?{#LANG,''})],''})][(#ENV{page}|!={'home'}|?{[(#URL_ARTICLE|urlencode)],''})]" target="_blank" rel="external">W3C Valid</a>
+		</div>
+
+	</footer>

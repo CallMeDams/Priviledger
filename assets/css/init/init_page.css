@@ -1,0 +1,305 @@
+/* ################## */
+/* CUSTOM PAGE STYLES */
+/* ################## */
+
+/********************/
+/* TABLE OF CONTENT */
+/********************/
+/*
+	1. DEFAULT AND SHARED STYLES
+	2. DEFAULT PAGE TITLES
+	3. ONE ANIMATED CARD
+    4. FOUR THUMBNAILS FRAMEWORK
+    5. PLACES ITEMS
+        5a. ITEMS CONTAINER
+*/
+
+/********************************/
+/* 1. DEFAULT AND SHARED STYLES */
+/********************************/
+body#page header{
+	background-color:white
+}
+body#page header nav#main a{
+	color:@write
+}
+/* ***** HOVER ***** */
+body#page header nav#main a:hover{
+	color:@pink
+}
+.page_content{
+	padding:120px 20px 0
+}
+
+/**************************/
+/* 2. DEFAULT PAGE TITLES */
+/**************************/
+h1{
+	text-align: center;
+	padding:0 -webkit-calc( (100% - 900px) / 2 );
+	padding:0 calc( (100% - 900px) / 2 );
+}
+
+/************************/
+/* 3. ONE ANIMATED CARD */
+/************************/
+#onecard_header{
+	height: 520px;
+	padding:0 -webkit-calc( (100% - 900px) / 2 );
+	padding:0 calc( (100% - 900px) / 2 );
+	position: relative;
+	border-bottom:1px solid @write
+}
+    #onecard_header .chapo{
+        display: block;
+        font-size: 0.9rem
+    }
+        #onecard{
+            width: 710px;
+            position: relative;
+            height: 100%;
+            overflow: hidden
+        }
+			@keyframes mt0{
+				0%{margin-top:150%}
+				100%{margin-top:0}
+			}
+			.animCard{
+				margin-top: 150%;
+				height: 100%;
+				position: relative;
+				-webkit-animation:mt0 1s ease-in-out 0.5s 1 forwards;
+				-o-animation:mt0 1s ease-in-out 0.5s 1 forwards;
+				animation:mt0 1s ease-in-out 0.5s 1 forwards;
+			}
+			   .card{
+					width:100%;
+					background-color:white;
+					height:auto;
+					padding: 18px 16px 0;
+					position: absolute;
+					-webkit-transition: all 500ms;
+					-o-transition: all 500ms;
+					transition: all 500ms;
+					-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+					-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+					box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+					z-index:30;
+					bottom:0;
+					right: 0
+				}
+					.card .content{
+						height: 100%;
+						border-color: @write;
+						border-style: solid;
+						border-width: 1px 1px 0;
+						position: relative;
+						padding: 25px 60px 15px;
+						text-align:center;
+						font-size:0.75rem;
+						line-height: 1.2rem
+					}	
+						.card::before, .card::after{
+							content:'';
+							width: 1px;
+							height:23px;
+							background-color:@write;
+							overflow: hidden;
+							position: absolute;
+							z-index: 5;
+						}
+						.card::before{
+							top:-2px;
+							left:8px;
+							-webkit-transform: rotate(-40deg);
+							-ms-transform: rotate(-40deg);
+							-o-transform: rotate(-40deg);
+							transform: rotate(-40deg);
+						}
+						.card::after{
+							top:-2px;
+							right:8px;
+							-webkit-transform: rotate(40deg);
+							-ms-transform: rotate(40deg);
+							-o-transform: rotate(40deg);
+							transform: rotate(40deg);
+						}
+						.card .content h2{
+							margin-bottom:10px;
+							padding-top: 0;
+							padding-bottom: 0;
+							line-height:1.5rem
+						}
+							.card .content h2 strong{
+								margin-top:0;
+							}
+						.card .chapo{
+							width: 100%;
+							margin-bottom:20px
+						}
+
+/********************************/
+/* 4. FOUR THUMBNAILS FRAMEWORK */
+/********************************/
+#partners.page_content{
+	padding:120px -webkit-calc( (100% - 930px) / 2) 30px;
+	padding:120px calc( (100% - 930px) / 2) 30px;
+	text-align:center
+}
+	#partners_container{
+		margin:30px 0 10px;
+	}
+	a.partner{
+		display: inline-block;
+		position: relative;
+		width: 450px;
+		height: 290px;
+		margin-bottom:20px;
+		line-height:normal;
+		color:@write;
+		border:1px solid @write
+	}
+	a.partner::after{
+		content:'';
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		z-index: 1;
+		background-color:@write;
+		opacity:0;
+		-webkit-transition: opacity 300ms;
+		-o-transition: opacity 300ms;
+		transition: opacity 300ms;
+	}
+/* ***** HOVER ***** */
+	a.partner:hover::after{
+		opacity:0.8
+	}
+		a.partner img{
+			width: 100%;
+			height: 100%;
+			object-fit:cover
+		}
+		a.partner .flex{
+			position: absolute;
+			z-index: 2;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			font-size: 1.5rem;
+		}
+			a.partner span{
+				width: 275px;
+				background-color:white;
+				padding:10px 20px;
+				text-transform: uppercase;
+			}
+
+/********************/
+/* 5. PLACES ITEMS */
+/********************/
+#places_services{
+	margin-top:80px;
+	text-align:center;
+}
+
+	/* 5a. ITEMS CONTAINER */
+	/*---------------------*/
+	#places_container{
+		height: 290px;
+		margin: 30px 0;
+		background-color: rgba(0,15,0,0.2)
+	}
+		#places_container .block{
+			width: 290px;
+			height: 290px;
+			background-color: aqua
+		}
+
+/* *********************************** */
+/* ***** RESPONSIVE BREAK POINTS ***** */
+/* *********************************** */
+
+/* ---------- MOBILE, PHABLET AND TABLET ---------- */
+@media screen and (max-width:1299px){}
+
+/* ---------- MOBILE, PHABLET AND TABLET PORTRAIT ---------- */
+@media screen and (max-width:799px), screen and (min-width:800px) and (max-width:1299px) and (orientation:portrait){
+	.page_content{
+		padding:0 20px 0
+	}
+	h1{
+		margin:80px 0 40px;
+		padding: 0 20px
+	}
+	#onecard_header{
+        height: 450px;
+        padding: 0;
+        -webkit-justify-content:center;
+        justify-content:center
+	}
+		#onecard_header em{
+			transform:none;
+			width: 100%;
+			text-align:center;
+			padding:30px 20px 0;
+			margin-top:80px;
+			height: 60px
+		}
+			#onecard{
+				width:-webkit-calc(100% - 40px);
+				width:calc(100% - 40px);
+				height: 100%
+			}
+				.card{
+					width:100%
+				}
+					.card .content{
+						padding: 25px 20px 15px
+					}
+						.card .content h2.romina{
+							font-size: 1.1rem
+						}
+						.card .chapo{
+							height:auto
+						}
+						a.link{
+							letter-spacing:normal;
+						}
+	#partners.page_content{
+		padding:0 20px 30px
+	}
+		a.partner{
+			display:block;
+			width:100%;
+			max-width: 350px;
+			height: 290px;
+			margin:0 auto 30px
+		}
+		a.partner::after{
+			opacity:0.2
+		}
+	/* ***** HOVER ***** */
+		a.partner:hover::after{
+			opacity:0.2
+		}
+			a.partner .flex{
+				padding:30px
+			}
+}
+
+/* ---------- MOBILE AND PHABLET ---------- */
+@media screen and (max-width:410px){}
+
+/* ---------- SMALL DESKTOP AND TABLET LANDSCAPE ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:landscape){}
+
+/* ---------- TABLET PORTRAIT ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:portrait){}
+
+/* ---------- BIG DESKTOP ---------- */
+@media screen and (min-width:1500px){}

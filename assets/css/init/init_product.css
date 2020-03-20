@@ -1,0 +1,199 @@
+/* ################## */
+/* CUSTOM PAGE STYLES */
+/* ################## */
+
+/********************/
+/* TABLE OF CONTENT */
+/********************/
+/*
+	1. H1 TITLE
+	2. MAIN TEXT CONTENT
+*/
+
+/***************/
+/* 1. H1 TITLE */
+/***************/
+h1.romina, h1.romina strong{
+	height: 350px;
+	font-size: 1.5rem;
+	text-align: center;
+	padding-top: 250px;
+	text-transform: uppercase;
+    color:@write
+}
+    h1.romina strong{
+        display: inline;
+    }
+	 h1.romina em{
+	 	font-family: 'farnham',serif;
+		display: block;
+		margin-top: 0;
+		font-size: 1rem;
+		color: #080875;
+		text-transform: none;
+	 }
+h1.romina.subhighted{
+	height: 200px;
+	padding-top: 100px;
+}
+
+/************************/
+/* 2. MAIN TEXT CONTENT */
+/************************/
+#page_content{
+	padding:50px -webkit-calc( (100% - 930px) / 2 ) 0;
+	padding:50px calc( (100% - 930px) / 2 ) 0;
+}
+	#prez.maintext{
+		width: 615px;
+		line-height: 1.5rem;
+	}
+	#prez.maintext p, #prez.maintext ul{
+		margin-bottom: 40px;
+	}
+		#prez.maintext h2{
+			text-transform: uppercase;
+			margin-bottom: 40px;
+			text-align: center;
+			@romaltfont;
+			font-size:1.5rem;
+			line-height: 2rem;
+		}
+		#prez.maintext img{
+			width: 100%;
+			height:auto;
+			display: block;
+			vertical-align:top;
+			margin: 20px 0
+		}
+
+/************************/
+/* 3. ASIDE INFORMATION */
+/************************/
+aside{
+    width: 270px;
+}
+    aside .side_pre_link{
+        line-height: 1.2rem;
+        margin-bottom:30px;
+    }
+		.side_pre_link.maintext p{
+			margin-bottom: 10px
+		}
+		.side_pre_link.maintext li{
+			list-style:disc
+		}
+		.side_pre_link.maintext span[style]{
+			color:@blue;
+			@faraltfont
+		}
+		aside .side_pre_link em{
+			font-style:normal;
+			color:red;
+			font-weight:bold
+		}
+    .note{
+        font-size: 0.8125rem;
+        line-height: 1.2rem;
+        text-align: center;
+        padding: 20px 0 50px;
+        color:@blue
+    }
+    .informations{
+        border-top:1px solid #D6D4DA;
+    }
+        .informations .title{
+            display: block;
+            padding: 10px 0;
+            font-weight: 400;
+            letter-spacing: 0.1rem;
+        }
+
+/* *********************************** */
+/* ***** RESPONSIVE BREAK POINTS ***** */
+/* *********************************** */
+
+/* ---------- MOBILE, PHABLET AND TABLET ---------- */
+@media screen and (max-width:1299px){}
+
+/* ---------- MOBILE, PHABLET AND TABLET PORTRAIT ---------- */
+@media screen and (max-width:799px), screen and (min-width:800px) and (max-width:1299px) and (orientation:portrait){
+	h1.romina, h1.romina strong{
+		height:auto;
+font-size: 1.5rem;
+		padding-top:60px
+	}
+		h1.romina strong{
+display: inline;
+		}
+	#page_content{
+		padding: 50px 20px
+	}
+		#prez.maintext{
+			width:100%;
+			max-width:500px;
+			text-align: center;
+			font-size: 1.1rem;
+line-height: 1.5rem;
+		}
+		#prez.maintext p, #prez.maintext ul{
+margin-bottom: 40px;
+		}
+			#prez.maintext h2{
+text-transform: uppercase;
+margin-bottom: 40px;
+text-align: center;
+@romaltfont;
+font-size:1.5rem;
+line-height: 2rem;
+			}
+			#prez.maintext img{
+width: 100%;
+height:auto;
+display: block;
+vertical-align:top;
+margin: 20px 0
+			}
+	aside{
+		width:100%;
+		padding-top:30px;
+		border-top:1px solid @write
+	}
+		aside .side_pre_link{
+line-height: 1.2rem;
+margin-bottom:30px;
+		}
+			 aside .side_pre_link em{
+font-style:normal;
+color:red;
+font-weight:bold
+			 }
+		.note{
+font-size: 0.8125rem;
+line-height: 1.2rem;
+text-align: center;
+padding: 20px 0 50px;
+color:@blue
+		}
+		.informations{
+border-top:1px solid #D6D4DA;
+		}
+			.informations .title{
+display: block;
+padding: 10px 0;
+font-weight: 400;
+letter-spacing: 0.1rem;
+			}
+}
+
+/* ---------- MOBILE AND PHABLET ---------- */
+@media screen and (max-width:410px){}
+
+/* ---------- SMALL DESKTOP AND TABLET LANDSCAPE ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:landscape){}
+
+/* ---------- TABLET PORTRAIT ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:portrait){}
+
+/* ---------- BIG DESKTOP ---------- */
+@media screen and (min-width:1500px){}

@@ -1,0 +1,47 @@
+/* ################## */
+/* CUSTOM PAGE STYLES */
+/* ################## */
+
+/********************/
+/* TABLE OF CONTENT */
+/********************/
+/*
+	1. RESULTS CONTAINER
+*/
+	
+/************************/
+/* 1. RESULTS CONTAINER */
+/************************/
+#results{
+	margin-top: 80px;
+	text-align: center
+}
+	#results a.toproduct, #results h2 a{
+		color:@write
+	}
+
+/* *********************************** */
+/* ***** RESPONSIVE BREAK POINTS ***** */
+/* *********************************** */
+
+/* ---------- MOBILE, PHABLET AND TABLET ---------- */
+@media screen and (max-width:1299px){}
+
+/* ---------- MOBILE, PHABLET AND TABLET PORTRAIT ---------- */
+@media screen and (max-width:799px), screen and (min-width:800px) and (max-width:1299px) and (orientation:portrait){
+	#results{
+		margin-top:60px
+	}
+}
+
+/* ---------- MOBILE AND PHABLET ---------- */
+@media screen and (max-width:410px){}
+
+/* ---------- SMALL DESKTOP AND TABLET LANDSCAPE ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:landscape){}
+
+/* ---------- TABLET PORTRAIT ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:portrait){}
+
+/* ---------- BIG DESKTOP ---------- */
+@media screen and (min-width:1500px){}

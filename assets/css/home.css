@@ -1,0 +1,79 @@
+/* ################## */
+/* CUSTOM PAGE STYLES */
+/* ################## */
+
+/********************/
+/* TABLE OF CONTENT */
+/********************/
+/*
+	1. REUSABLE ITEMS
+		1a. Title blocks
+	2. FULL WIDTH IMAGE
+*/
+
+/*********************/
+/* 1. REUSABLE ITEMS */
+/*********************/
+
+	/* 1a. Title blocks */
+	/*------------------*/
+	.blocktitre{
+		margin-top: 120px;
+		height:340px;
+		position: relative;
+		font-size:2.5rem;
+		color:white;
+		text-align:center;
+		line-height:normal
+	}
+		.blocktitre div{
+			height: 100%;
+			width:680px;
+			margin: 0 auto;
+		}
+		.blocktitre.sides{			
+			background:@write url("../../medias/imports/trame_background.png") no-repeat center center
+		}
+			.blocktitre.sides div{
+				background-color:@write
+			}
+		.blocktitre.center{
+			background:@write
+		}
+			.blocktitre.center div{
+				background:@write url("../../medias/imports/trame_background.png") no-repeat center center
+			}
+
+/***********************/
+/* 2. FULL WIDTH IMAGE */
+/***********************/
+#fullwidth{
+	text-align: center;
+	margin-top: 100px
+}
+	#fullwidth img{
+		width: 100%;
+		height: auto
+	}
+
+/* *********************************** */
+/* ***** RESPONSIVE BREAK POINTS ***** */
+/* *********************************** */
+
+/* ---------- MOBILE, PHABLET AND TABLET ---------- */
+@media screen and (max-width:1299px){}
+
+/* ---------- MOBILE, PHABLET AND TABLET PORTRAIT ---------- */
+@media screen and (max-width:799px), screen and (min-width:800px) and (max-width:1299px) and (orientation:portrait){}
+
+/* ---------- MOBILE AND PHABLET ---------- */
+@media screen and (max-width:410px){}
+
+/* ---------- SMALL DESKTOP AND TABLET LANDSCAPE ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:landscape){}
+
+/* ---------- TABLET PORTRAIT ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:portrait){}
+
+/* ---------- BIG DESKTOP ---------- */
+@media screen and (min-width:1500px){}

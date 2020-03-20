@@ -1,0 +1,96 @@
+[(#REM) *****
+	    FAVICONS ADDON
+        *****
+]<BOUCLE_favicon(CONDITION){si #ENV{addon}|=={'favicon'}}><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ENV{color}">
+	<meta name="msapplication-TileColor" content="#ENV{color}">
+	<meta name="theme-color" content="#ENV{color}"></BOUCLE_favicon>
+
+[(#REM) *****
+	    GOOGLE ANALYTICS ADDON
+        *****
+]<BOUCLE_analytics(CONDITION){si #ENV{addon}|=={'analytics'}}><meta name="google-site-verification" content="#ENV{idWT}" />
+<BOUCLE_analytics_script(CONDITION){si #ENV{analytics}|=={1}}><script defer async src="https://www.googletagmanager.com/gtag/js?id=#ENV{idAnalytics}"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+		gtag('config', '#ENV{idAnalytics}');
+	</script></BOUCLE_analytics_script></BOUCLE_analytics>
+
+[(#REM)*****
+	   MAP SCRIPT ADDON
+]<BOUCLE_maps(CONDITION){si #ENV{addon}|=={'map'}}><div id="map_#ID_ARTICLE" class="google_map item"></div>
+				<script>
+					function initMap() {
+						var myLatlng = new google.maps.LatLng(#ENV{lat},#ENV{lon});
+						var map = new google.maps.Map(document.getElementById('map_#ID_ARTICLE'), {
+							zoom: [(#ENV{zoom}|!={0}|?{#ENV{zoom},'15'})],
+							center: myLatlng,
+							scrollwheel: false,
+							disableDefaultUI: [(#ENV{ui}|=={0}|?{'true','false'})]
+						});
+						//var image = 'medias/imports/map_pin.png';
+						var Marker = new google.maps.Marker({
+							position: myLatlng,
+							//icon: image,
+							map: map,
+							title: '#NOM_SITE_SPIP'
+						});
+						var InfoWnd = new google.maps.InfoWindow({
+							content: '<a href="https://www.google.com/maps/place/#ENV{lat},#ENV{lon}" style="color:black">#NOM_SITE_SPIP</a>',
+							position: new google.maps.LatLng([(#ENV{lat}|plus{0.0017})],#ENV{lon})
+						});
+						InfoWnd.open(map); 
+						google.maps.event.addListener(Marker, 'click', function() {
+							window.open('https://www.google.com/maps/place/#ENV{lat},#ENV{lon}','_blank');
+						});
+					}
+				</script>
+				<script defer async src="https://maps.googleapis.com/maps/api/js?key=#ENV{key}&callback=initMap"></script></BOUCLE_maps>
+
+[(#REM) *****
+	    IFRAME MAP ADDON
+        *****
+]<BOUCLE_maps_iframe(CONDITION){si #ENV{addon}|=={'mapiframe'}}><iframe src="#ENV{urlmap}" allowfullscreen></iframe></BOUCLE_maps_iframe>
+
+[(#REM) *****
+	    PAGE ENDING ADDONS
+        *****
+]<BOUCLE_ending(CONDITION){si #ENV{addon}|=={'ending'}}>[(#REM) 
+    *****
+	COOKIE INFORMATION
+    *****
+	<div id="cookie_information">
+		<:cookie:> <:fde_cookie:> &nbsp;&nbsp;&nbsp;  <a href="#" class="yes_cookie"><span class="fa fa-check-square-o"></span></a>
+	</div>
+	
+	][(#REM) *****
+		     NO JAVASCRIPT SPLASH SCREEN
+             *****
+	<noscript>
+		<div class="javascript-required">
+			<i class="fa fa-times-circle"></i><:nojs:>
+		</div>
+	</noscript>
+	
+	][(#REM) *****
+			 "TURN YOUR DEVICE" SPLASH SCREEN
+			 *****
+	][(#ENV{mandatory}|=={1}|oui)[<div id="devices_mandatory">
+		(#ENV{realdevice}|=={'phone'}|oui)<strong><span class="fal info-circle fa-2x"></span><br><:device_turn_phone:></strong>
+		<img src="medias/imports/device_turn_phone.png" alt="<:device_turn_phone:>">
+	</div>]]
+	
+    [(#REM) *****
+            CSS AND JS BRUT CODE INCLUSION
+            *****
+	]<!--ADDONSCSS(#ENV{page})-->
+
+    [(#REM) *****
+            CSS AND JS BRUT CODE INCLUSION
+            *****
+	]<!--ADDONSJS(#ENV{page})--></BOUCLE_ending>

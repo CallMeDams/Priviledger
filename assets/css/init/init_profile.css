@@ -1,0 +1,118 @@
+/* ################## */
+/* CUSTOM PAGE STYLES */
+/* ################## */
+
+/********************/
+/* TABLE OF CONTENT */
+/********************/
+/*
+	1. TOP TITLES WITH BACKGROUND
+	2. SUBCONTENT
+*/
+
+/*********************************/
+/* 1. TOP TITLES WITH BACKGROUND */
+/*********************************/
+h1{
+	padding-top:0
+}
+	h1 span{
+		display: inline-block;
+		padding: 10px 20px 8px;
+		background-color: white
+	}
+.backed{
+	background:@write;
+	text-align: center
+}
+.backed.reverse{
+	background:@write url("../../../medias/imports/trame_background.png") no-repeat center center
+}
+.backed h1{
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	background:url("../../../medias/imports/trame_background.png") no-repeat center center;
+    background-size:cover
+}
+.backed.reverse h1{
+	background:@write
+}
+	.backed h1 strong{		
+		font-size:2.5rem;
+		color:white;
+		text-transform: uppercase;
+		height: 100%;
+		line-height: 2.8rem;
+		padding: 150px 50px 0
+	}
+
+/*****************/
+/* 2. SUBCONTENT */
+/*****************/
+.subcontent{
+	border-bottom:1px solid #d6d4da;
+	padding-bottom: 10px;
+	margin-bottom: 20px
+}
+	.subcontent a{
+		text-transform: uppercase;
+		letter-spacing: 0.1rem;
+		display:block;
+		margin-bottom: 10px;
+		position: relative
+	}
+	.subcontent a::after{
+		font-family:'Font Awesome 5 Pro';
+		font-weight: 300;
+		content:'\f067';
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+	.subcontent.down a::after{
+		content:'\f068';
+	}
+	.subcontent .content{
+		height: 0;
+		overflow: hidden;
+	}
+	.subcontent.down .content{
+		height:auto;
+		margin-bottom: 10px;
+	}
+
+/* *********************************** */
+/* ***** RESPONSIVE BREAK POINTS ***** */
+/* *********************************** */
+
+/* ---------- MOBILE, PHABLET AND TABLET ---------- */
+@media screen and (max-width:1299px){}
+
+/* ---------- MOBILE, PHABLET AND TABLET PORTRAIT ---------- */
+@media screen and (max-width:799px), screen and (min-width:800px) and (max-width:1299px) and (orientation:portrait){
+    #onecard_header{
+        height:400px
+	}
+        .backed h1{
+            width: 100%
+        }
+                .backed h1 strong{		
+                    font-size:2rem;
+                    line-height: 2.4rem;
+                    padding:80px 50px 0
+                }
+}
+
+/* ---------- MOBILE AND PHABLET ---------- */
+@media screen and (max-width:410px){}
+
+/* ---------- SMALL DESKTOP AND TABLET LANDSCAPE ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:landscape){}
+
+/* ---------- TABLET PORTRAIT ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:portrait){}
+
+/* ---------- BIG DESKTOP ---------- */
+@media screen and (min-width:1500px){}

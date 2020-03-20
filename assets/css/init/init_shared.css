@@ -1,0 +1,810 @@
+/* #################### */
+/* CUSTOM SHARED STYLES */
+/* #################### */
+
+/********************/
+/* TABLE OF CONTENT */
+/********************/
+/*
+	0. LOADER
+    1. GLOBAL STYLES (body, default link...)
+		1a. HTML page and reusable styles
+		1b. Link's type
+			a. Default link & List
+			b. Long blue link 'reserve on app' WITHOUT icon
+			c. Long blue link 'reserve on app' WITH icon
+			d. Fixed animated circle link
+			e. Carousel "more" link
+		1c. Titles
+		1d. Typography classes
+	2. HEADER
+		2a. Top bar
+			a. Cities
+		2b. Mobile menu
+		2c. Main nav
+*/
+
+/*************/
+/* 0. LOADER */
+/*************/
+#loader{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    background-color:white;
+    z-index:10000
+}
+    #loader .flex{
+        width: 100%;
+        height: 100%
+    }
+        .lds-default {
+        display: inline-block;
+        position: relative;
+        width: 64px;
+        height: 64px;
+        }
+        .lds-default div {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background:@blue;
+        border-radius: 50%;
+        animation: lds-default 1.2s linear infinite;
+        }
+        .lds-default div:nth-child(1) {
+        animation-delay: 0s;
+        top: 29px;
+        left: 53px;
+        }
+        .lds-default div:nth-child(2) {
+        animation-delay: -0.1s;
+        top: 18px;
+        left: 50px;
+        }
+        .lds-default div:nth-child(3) {
+        animation-delay: -0.2s;
+        top: 9px;
+        left: 41px;
+        }
+        .lds-default div:nth-child(4) {
+        animation-delay: -0.3s;
+        top: 6px;
+        left: 29px;
+        }
+        .lds-default div:nth-child(5) {
+        animation-delay: -0.4s;
+        top: 9px;
+        left: 18px;
+        }
+        .lds-default div:nth-child(6) {
+        animation-delay: -0.5s;
+        top: 18px;
+        left: 9px;
+        }
+        .lds-default div:nth-child(7) {
+        animation-delay: -0.6s;
+        top: 29px;
+        left: 6px;
+        }
+        .lds-default div:nth-child(8) {
+        animation-delay: -0.7s;
+        top: 41px;
+        left: 9px;
+        }
+        .lds-default div:nth-child(9) {
+        animation-delay: -0.8s;
+        top: 50px;
+        left: 18px;
+        }
+        .lds-default div:nth-child(10) {
+        animation-delay: -0.9s;
+        top: 53px;
+        left: 29px;
+        }
+        .lds-default div:nth-child(11) {
+        animation-delay: -1s;
+        top: 50px;
+        left: 41px;
+        }
+        .lds-default div:nth-child(12) {
+        animation-delay: -1.1s;
+        top: 41px;
+        left: 50px;
+        }
+        @keyframes lds-default {
+            0%, 20%, 80%, 100% {
+            transform: scale(1);
+            }
+            50% {
+            transform: scale(1.5);
+            }
+        }
+
+/********************/
+/* 1. GLOBAL STYLES */
+/********************/
+
+	/* 1a. HTML page and reusable styles */
+	/*-----------------------------------*/
+	body{
+		@mainfont;
+		font-weight:300;
+		color:@write;
+		font-size:0.9rem;
+		line-height:1.2rem;
+		position: relative
+	}
+	.relative{
+		position:relative
+	}
+	
+	/* 1b. Link's type */
+	/*-----------------*/
+
+		/* a. Default link & List */
+		/* ...................... */
+		.maintext a{
+			color:@write
+		}
+/* ***** HOVER ***** */
+		.maintext a:hover{
+			color:@blue
+		}
+        .maintext ul{
+            list-style:circle
+        }
+        .maintext ol{
+            list-style:decimal-leading-zero
+        }
+        .maintext td{
+            padding-right:10px
+        }
+	
+
+		/* b. Long blue link 'reserve on app' WITHOUT icon */
+		/* ............................................... */
+		a.link{
+			border-radius:20px;
+			padding:5px 25px;
+			background-color:@blue;
+			color:white;
+			text-transform: uppercase;
+			letter-spacing: 0.2rem;
+			font-weight: 400
+		}
+/* ***** HOVER ***** */
+		a.link:hover{
+			background-color:black;
+		}
+
+
+		/* c. Long blue link 'reserve on app' WITH icon */
+		/* ............................................ */
+		.downloadsmallblock{
+			text-align:center
+		}
+			.downloadsmallblock a{
+				width:auto;
+				display: inline-block;
+				white-space: nowrap;
+				padding:8px 10px 8px 8px;
+				border-radius:60px;
+				color:@write;
+				font-size:0.65625rem;
+				letter-spacing: 0.08rem;
+				font-weight: 400;
+                color:white;
+				background-color:@blue;
+			}
+/* ***** HOVER ***** */
+			.downloadsmallblock a:hover{
+				background-color:black;
+				color:white
+			}
+				.downloadsmallblock a em{
+					vertical-align:middle;
+					width:auto;
+					text-align:left;
+					text-transform: uppercase;
+				}
+				.downloadsmallblock a img{
+					vertical-align:middle;
+					width:25px;
+					margin-right: 10px;
+					display: inline-block
+				}
+
+
+		/* d. Fixed animated circle link */
+		/* ............................. */
+		a.downloadapp{
+			position: fixed;
+			z-index: 400;
+			bottom: 20px;
+			right: 20px;
+			width: 100px;
+			height: 100px;
+			border-radius:50px;
+			background-color:white;
+			text-align:center;
+			text-transform: uppercase;
+			font-size:0.6rem;
+			line-height:0.8rem;
+			color:@write;
+			font-weight: 700;
+			border:2px solid white;
+			-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
+			-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);
+			box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);		
+		}
+			a.downloadapp .relative{
+				width:100%;
+				height:100%;
+				padding:60px 10px 20px;
+				position: relative;
+			}
+				@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+				@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+				@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+				a.downloadapp img{
+					display: inline-block;
+					margin-bottom: 5px;
+					position: absolute;
+					width: 50px;
+					height: 50px;
+					top: 5px;
+					left: 23px;
+					object-fit: contain;/*
+					-webkit-animation:spin 3s linear infinite;
+					-moz-animation:spin 3s linear infinite;
+					animation:spin 3s linear infinite;*/
+				}
+/* ***** HOVER ***** */
+		a.downloadapp:hover{
+			border:2px solid @write;
+		}
+
+
+		/* e. Carousel "more" link */
+		/* ....................... */
+		a.vmore{
+			color:@blue;
+			@faraltfont
+		}
+	/* ***** HOVER ***** */
+		a.vmore:hover{
+			text-decoration: underline;
+		}
+
+
+	/* 1c. Titles */
+	/*------------*/
+	h1.romina, h2.romina, h3.romina, h4.romina{
+		margin-bottom:30px;
+		font-size:1.5rem;
+		text-transform: uppercase;
+		line-height: 1.8rem;
+		letter-spacing: 0.1rem
+	}
+		h1.romina strong, h2.romina strong, h3.romina strong, h4.romina strong{
+			display:block;
+			color:@blue;
+			font-size:1rem;
+			text-transform:none
+		}
+
+
+	/* 1d. Typography classes */
+	/*------------------------*/
+	.romina{font-family:'romina',serif}
+	.farnham{font-family:'farnham',serif}
+
+
+/*************/
+/* 2. HEADER */
+/*************/
+header{
+	position:fixed;
+	z-index:500;
+	top:0;
+	left:0;
+	width:100%;
+    background-color:transparent;
+	-webkit-transition: all 300ms;
+	-o-transition: all 300ms;
+	transition: all 300ms;
+}
+header.scrolled{
+	background-color:white;
+	-webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.2);
+}
+header a{
+	font-weight:400
+}
+
+
+	/* 2a. Top bar */
+	/*-------------*/
+	#topbar{
+		background-color:@write;
+		padding:0 -webkit-calc( (100% - 900px) / 2 );
+		padding:0 calc( (100% - 900px) / 2 );
+		height: 30px;
+		letter-spacing:0.1rem;
+		font-size: 0.7rem;
+		color:white;
+		text-transform: uppercase
+	}
+		@keyframes bc {
+			0%{background-color:#c64036}
+			50%{background-color:#ea9d73}
+			100%{background-color:#c64036}
+		}
+		#topbar a{
+			text-transform: uppercase;
+			display: inline-block;
+			padding:6px 20px 7px;
+			color:white;
+			background-color:#c64036;
+			font-size: 0.7rem;
+			-webkit-animation:bc 2s infinite;
+			-o-animation:bc 2s infinite;
+			animation:bc 2s infinite;
+		}
+/* ***** HOVER ***** */
+		#topbar a:hover, header.scrolled #topbar a:hover{
+			color:@blue;
+			background-color:white
+		}
+
+		/* a. Cities */
+		/* ......... */
+		.select-hidden {
+			display: none;
+			visibility: hidden;
+			padding-right:5px;
+		}
+		.select {
+			cursor: pointer;
+			display: inline-block;
+			position: relative;
+			color: white;
+			width: 110px;
+			height: 30px;
+		}
+		#languages .select{
+			width:70px;			
+			text-transform: uppercase
+		}
+		.select-styled {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			background-color:transparent;
+			padding: 6px 15px 0 6px;
+			margin-left: 8px;
+			-moz-transition: all 0.2s ease-in;
+			-o-transition: all 0.2s ease-in;
+			-webkit-transition: all 0.2s ease-in;
+			transition: all 0.2s ease-in
+		}
+		.select-styled:after {
+			content: "";
+			width: 0;
+			height: 0;
+			border: 7px solid transparent;
+			border-color: #fff transparent transparent transparent;
+			position: absolute;
+			top: 12px;
+			right: 10px;
+		}
+/* ***** HOVER ***** **/
+		.select-styled:hover {
+			background-color:white;
+			color:@blue
+		}
+		.select-styled:hover::after{
+			border-color: @blue transparent transparent transparent;
+		}
+		.select-styled:active, .select-styled.active {
+			color:@blue;
+			background-color:white;
+		}
+		.select-styled:active:after, .select-styled.active:after {
+			top: 5px;
+			border-color: transparent transparent @blue transparent;
+		}
+		.select-options {
+			display: none;
+			position: absolute;
+			top: 100%;
+			right: 0;
+			left: 8px;
+			z-index: 999;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			background-color:white;
+			color: @blue
+		}
+		.select-options li {
+			margin: 0;
+			padding: 6px;
+			border-top: 1px solid white;
+			-moz-transition: all 0.15s ease-in;
+			-o-transition: all 0.15s ease-in;
+			-webkit-transition: all 0.15s ease-in;
+			transition: all 0.15s ease-in;
+		}
+/* ***** HOVER ***** **/
+		.select-options li:hover {
+			color:white;
+			background:@write;
+		}
+		.select-options li[rel="hide"] {
+			display: none;
+		}
+
+
+	/* 2b. Mobile menu */
+	/*-----------------*/
+	#burger-menu{
+		width:30px;
+		height:40px;
+		position: fixed;
+		z-index:600;
+		top:10px;
+		left:10px;
+		padding-top: 5px;
+		cursor:pointer;
+		display: none
+	}
+		.hamburger{
+			 display: inline-block;
+			 cursor: pointer;
+			 transition-property: opacity, filter;
+			 transition-duration: 0.15s;
+			 transition-timing-function: linear;
+			 font: inherit;
+			 color: inherit;
+			 text-transform: none;
+			 background-color: transparent;
+			 border: 0;
+			 margin: 0;
+			 overflow: visible;
+		}
+		 .hamburger.is-active .hamburger-inner, .hamburger.is-active .hamburger-inner::before, .hamburger.is-active .hamburger-inner::after {
+			 background-color:@write;
+		}
+		 .hamburger-box{
+			 width: 30px;
+			 height: 24px;
+			 display: inline-block;
+			 position: relative;
+		}
+		 .hamburger-inner {
+			 display: block;
+			 top: 50%;
+			 margin-top: -2px;
+		}
+		 .hamburger-inner, .hamburger-inner::before, .hamburger-inner::after {
+			 width: 30px;
+			 height: 4px;
+			 background-color:@write;
+			 border-radius: 4px;
+			 position: absolute;
+			 transition-property: transform;
+			 transition-duration: 0.15s;
+			 transition-timing-function: ease;
+		}
+		 .hamburger-inner::before, .hamburger-inner::after {
+			 content: "";
+			 display: block;
+		}
+		 .hamburger-inner::before {
+			 top: -10px;
+		}
+		 .hamburger-inner::after {
+			 bottom: -10px;
+		}
+		.hamburger--spin .hamburger-inner {
+			 transition-duration: 0.22s;
+			 transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+		}
+		.hamburger--spin .hamburger-inner::before {
+			 transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in;
+		}
+		.hamburger--spin .hamburger-inner::after {
+			 transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+		}
+		.hamburger--spin.is-active .hamburger-inner {
+			 transform: rotate(225deg);
+			 transition-delay: 0.12s;
+			 transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+		}
+		.hamburger--spin.is-active .hamburger-inner::before {
+			 top: 0;
+			 opacity: 0;
+			 transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out;
+		}
+		.hamburger--spin.is-active .hamburger-inner::after {
+			 bottom: 0;
+			 transform: rotate(-90deg);
+			 transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+		}
+
+
+	/* 2c. Main nav */
+	/*--------------*/
+	#main_nav{
+		background-color:white;
+		height: 130px;
+		text-align: center;
+		padding:20px -webkit-calc( (100% - 900px) / 2 ) 10px;
+		padding:20px calc( (100% - 900px) / 2 ) 10px;
+		position: relative
+	}
+		a#logo{
+			display: inline-block;
+			background-color:white
+		}
+			a#logo img{
+				display:inline-block;
+			}
+		nav#main{
+			width:100%
+		}
+			nav#main li{
+				width:auto;
+				margin:0;
+				text-align:center
+			}
+			nav#main li.separator{
+				display: none
+			}
+				nav#main a{
+					white-space: nowrap;
+					text-transform: uppercase;
+					font-size:0.8rem;
+					letter-spacing:0.2rem;
+					color:@write;
+					position: relative
+				}
+				header.scrolled nav#main a{
+					color:@write
+				}
+/* ***** HOVER ***** */
+				nav#main a:hover, header.scrolled nav#main a:hover{
+					color:@pink
+				}
+
+/* *********************************** */
+/* ***** RESPONSIVE BREAK POINTS ***** */
+/* *********************************** */
+
+/* ---------- MOBILE, PHABLET AND TABLET ---------- */
+@media screen and (max-width:1299px){}
+
+/* ---------- MOBILE, PHABLET AND TABLET PORTRAIT ---------- */
+@media screen and (max-width:799px), screen and (min-width:800px) and (max-width:1299px) and (orientation:portrait){
+	h1.romina, h2.romina, h3.romina, h4.romina{
+		padding: 0 20px
+	}
+		h1.romina strong, h2.romina strong, h3.romina strong, h4.romina strong{
+			margin-top:5px;
+			line-height: 1rem
+		}
+	header{
+		background-color:white
+	}
+    .downloadsmallblock a{
+        color:@write;
+        background-color:@lightpink;
+    }
+	a.downloadapp{
+		width:auto;
+		height: 45px;
+		padding: 0 20px 0 5px;
+		background-color: @blue;
+		color: white;
+		-webkit-transition:right 600ms;
+		-o-transition:right 600ms;
+		transition:right 600ms;
+		right: -200%
+	}
+		a.downloadapp .relative{
+			font-size:0.9rem;
+			display: flex;
+			justify-content:center;
+			align-content: center;
+			align-items: center;
+			text-align: right;
+			padding:0;
+		}
+			a.downloadapp img{
+				margin-bottom:0;
+				margin-right: 5px;
+				position: relative;
+				width: 30px;
+				height: 30px;
+				top:auto;
+				left:auto;
+			}
+	/* ***** HOVER ***** */
+	a.downloadapp:hover{
+		border:2px solid white;
+	}/*
+	a#logo img{
+		width:180px
+	}*/
+		#topbar{
+			position: fixed;
+			z-index: 550;
+			top:190px;
+			left: -90%;
+			width: 90%;
+			padding:10px 0 0;
+			height:80px;
+			font-size: 0.9rem;
+			display: flex;
+			align-content: space-between;
+			-webkit-transition: all 500ms;
+			-o-transition: all 500ms;
+			transition: all 500ms
+		}
+		#topbar.is-active{
+			left: 0
+		}
+			#topbar .flex{
+				width: 100%;
+				justify-content: space-between
+			}
+				#town_country.flex{
+					font-size:0.9rem;
+					width:100%;
+					margin-bottom: 5px;
+					justify-content:center;
+				}
+					#town_country .select{
+						width: 140px
+					}
+				#topbar a{
+					width: 100%;
+					text-align: center;
+					font-size:1rem;
+					padding:10px 20px
+				}
+/* ***** HOVER ***** */
+				#topbar a:hover, header.scrolled #topbar a:hover{
+					color:white
+				}
+		#languages{
+			margin-right:0;
+			position: fixed;
+			z-index:400;
+			top: 10px;
+			right: 10px
+		}
+			.select{
+				color:@blue
+			}
+			.select-styled:after {
+				border-color: @blue transparent transparent transparent
+			}
+			.select-styled:active:after, .select-styled.active:after {
+				top: 5px;
+				border-color: transparent transparent white transparent;
+			}
+			.select-styled:active, .select-styled.active{
+				color:white;
+				background-color:@write
+			}
+		#main_nav{
+			height:55px;
+			padding:10px 0;
+			justify-content: center
+		}
+			#burger-menu{
+				display: block
+			}
+			#main_nav img{
+				width: 200px
+			}
+			nav#main{
+				position: fixed;
+				z-index:500;
+				top:0;
+				left:-90%;
+				width:90%;
+				height: 100%;
+				background-color:white;
+				display:flex;
+				justify-content:center;
+				-webkit-transition: all 500ms;
+				-o-transition: all 500ms;
+				transition: all 500ms;
+				-webkit-box-shadow: 5px 0px 5px 0px rgba(0,0,0,0.1);
+				-moz-box-shadow: 5px 0px 5px 0px rgba(0,0,0,0.1);
+				box-shadow: 5px 0px 5px 0px rgba(0,0,0,0.1);
+			}
+			nav#main.is-active{
+				left: 0
+			}
+				nav#main li{
+					width: 100%;
+					margin:10px 0;
+					text-align: left
+				}
+				nav#main li.separator{
+					display: block;
+					margin:12px 0;
+					padding:0;
+					background-color:rgba(0,0,0,0.2)
+				}
+				nav#main li.badge{
+					padding-left:50px;
+				}
+					nav#main a{
+                        display: block;
+						font-size:1.2rem;
+						width: 100%;
+						padding-left:20px;
+						color:@write;
+					}
+					header.scrolled nav#main a{
+						color:@write
+					}
+/* ***** HOVER ***** */
+					nav#main a:hover, header.scrolled nav#main a:hover{
+						color:@write
+					}
+					nav#main a.active{
+						font-weight:700
+					}
+				nav#main img{
+					width: 170px;
+					height: auto;
+					display: inline-block;
+					margin: 10px 0 100px
+				}
+}
+
+/* ---------- MOBILE AND PHABLET ---------- */
+@media screen and (max-width:410px){
+	a#logo img{
+		width:180px
+	}
+	nav#main img{
+		width: 140px;
+		margin-bottom:70px
+	}
+	#topbar{
+		top:150px;
+	}	
+	nav#main li.separator{
+		margin:3px 0
+	}
+	nav#main a{
+		font-size:1rem;
+		letter-spacing:0.15rem;
+		margin:2px 0;
+	}
+}
+
+/* ---------- SMALL DESKTOP AND TABLET LANDSCAPE ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:landscape){}
+
+/* ---------- TABLET PORTRAIT ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:portrait){}
+
+/* ---------- BIG DESKTOP ---------- */
+@media screen and (min-width:1500px){}

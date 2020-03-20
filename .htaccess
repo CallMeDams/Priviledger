@@ -1,0 +1,221 @@
+################ REWRITING ######################
+RewriteEngine On
+
+################ SUBDIRECTORY CONFIGURATION ######################
+RewriteBase /
+
+################ CUSTOM OPTIONS ######################
+
+
+################ APACHE OVERWRITE ######################
+
+
+################ FOLDERS READING PROTECTION ######################
+Options -Indexes
+DirectoryIndex index.html index.htm index.php
+AddDefaultCharset UTF-8
+ServerSignature Off
+
+################ CUSTOM REDIRECTS ######################
+
+# CUSTOM REWRITING
+
+# OLD PAGES
+
+# IMPROOV REDIRECTION
+#RewriteRule ^filemanager/?(.*)	mcp.php?mod=filemanager/filemanager [QSA,L]
+
+# DOMAIN(S) * => WWW RULES AND SSL
+RewriteCond %{HTTP_HOST} !^www\.
+RewriteCond %{HTTPS}s ^on(s)|
+RewriteRule ^ https://www.%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# FORCE FILE TO DOWNLOAD INSTEAD OF APPEAR IN BROWSER
+AddType application/octet-stream .zip .pdf .csv
+
+################ MANAGEMENT OF URLS #######################
+RewriteCond %{QUERY_STRING} action=rss
+RewriteRule mcp.php	mcp.php?mod=rss [QSA,L]
+RewriteCond %{QUERY_STRING} action=ical
+RewriteRule mcp.php	mcp.php?mod=ical_prive [QSA,L]
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule "." - [skip=100]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule "." - [skip=100]
+
+################ URL REWRITE RULES #######################
+RewriteRule ^rubrique([0-9]+)(\.html)?$	mcp.php?mod=rubrique&id_rubrique=$1 [QSA,L]
+RewriteRule ^article([0-9]+)(\.html)?$	mcp.php?mod=article&id_article=$1 [QSA,L]
+RewriteRule ^breve([0-9]+)(\.html)?$	mcp.php?mod=breve&id_breve=$1 [QSA,L]
+RewriteRule ^mot([0-9]+)(\.html)?$		mcp.php?mod=mot&id_mot=$1 [QSA,L]
+RewriteRule ^auteur([0-9]+)(\.html)?$	mcp.php?mod=auteur&id_auteur=$1 [QSA,L]
+RewriteRule ^site([0-9]+)(\.html)?$	mcp.php?mod=site&id_syndic=$1 [QSA,L]
+# Compatibilite avec les anciennes URLS appelant directement des fichiers php
+RewriteRule ^(rubrique|article|breve|mot|auteur|site|agenda|backend|backend-breves|distrib|forum|ical|plan|recherche|sommaire|sommaire_texte)\.php3?$	mcp.php?mod=$1 [QSA,L]
+RewriteRule ^resume.php[3]?	mcp.php?mod=sommaire [QSA,L]
+RewriteRule ^page.php[3]?	mcp.php [QSA,L]
+RewriteRule ^spip_cal\.php3?$	mcp.php?mod=ical_prive [QSA,L]
+RewriteRule ^spip_rss\.php3?$	mcp.php?mod=rss [QSA,L]
+RewriteRule ^([1-9][0-9]*)$     mcp.php?action=redirect&type=article&status=301&id=$1 [QSA,L]
+RewriteRule ^([\w]+)\.api(/(.*))?$ mcp.php?action=api_$1&arg=$3 [QSA,L]
+RewriteRule ^[^\.]+(\.html)?$		mcp.php [QSA,E=url_propre:$0,L]
+
+################ DENY ACCESS TO DIRECTORY .svn #######################
+RewriteRule /\\..*(/.*|$) - [F]
+
+################ STANDARD FILE REWRITING RULES #######################
+RewriteRule ^robots[.]txt$      mcp.php?mod=robots.txt [QSA,L]
+RewriteRule ^favicon[.]ico$      mcp.php?mod=favicon.ico [QSA,L]
+RewriteRule ^sitemap[.]xml$      mcp.php?mod=sitemap.xml [QSA,L]
+
+################ ERRORS REWRITING RULES #######################
+#403_FORBIDDEN
+#ErrorDocument 403 /mcp.php?mod=403
+#404_NOT_FOUND
+#ErrorDocument 404 /mcp.php?mod=404
+
+################ GZIP COMPRESSION ######################
+SetOutputFilter DEFLATE
+AddOutputFilterByType DEFLATE application/javascript
+AddOutputFilterByType DEFLATE application/rss+xml
+AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+AddOutputFilterByType DEFLATE application/font-woff
+AddOutputFilterByType DEFLATE application/x-font
+AddOutputFilterByType DEFLATE application/x-font-opentype
+AddOutputFilterByType DEFLATE application/x-font-otf
+AddOutputFilterByType DEFLATE application/x-font-truetype
+AddOutputFilterByType DEFLATE application/x-font-ttf
+AddOutputFilterByType DEFLATE application/x-javascript
+AddOutputFilterByType DEFLATE application/xhtml+xml
+AddOutputFilterByType DEFLATE application/xml
+AddOutputFilterByType DEFLATE font/opentype
+AddOutputFilterByType DEFLATE font/otf
+AddOutputFilterByType DEFLATE font/ttf
+AddOutputFilterByType DEFLATE font/woff
+AddOutputFilterByType DEFLATE image/svg+xml
+AddOutputFilterByType DEFLATE image/x-icon
+AddOutputFilterByType DEFLATE text/css
+AddOutputFilterByType DEFLATE text/html
+AddOutputFilterByType DEFLATE text/javascript
+AddOutputFilterByType DEFLATE text/plain
+AddOutputFilterByType DEFLATE text/xml
+BrowserMatch ^Mozilla/4 gzip-only-text/html
+BrowserMatch ^Mozilla/4\.0[678] no-gzip
+BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+Header append Vary User-Agent
+
+################ HEADERS ######################
+<FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2|css|js)$">
+    Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+
+################ CACHE-CONTROL HEADERS ######################
+# YEAR
+<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf|mp3|mp4)$">
+    Header set Cache-Control "public"
+    Header set Expires "Thu, 15 Apr 2010 20:00:00 GMT"
+    Header unset Last-Modified
+</FilesMatch>
+# 2 HOURS
+<FilesMatch "\.(html|htm|xml|txt|xsl)$">
+    Header set Cache-Control "max-age=7200, must-revalidate"
+</FilesMatch>
+<FilesMatch "\.(js|css)$">
+    SetOutputFilter DEFLATE
+    Header set Expires "Thu, 15 Apr 2010 20:00:00 GMT"
+</FilesMatch>
+# DISABLE CACHING FOR SCRIPTS AND OTHER DYNAMIC FILES
+<FilesMatch ".(pl|php|cgi|spl|scgi|fcgi)$">
+    Header unset Cache-Control
+</FilesMatch>
+
+################ EXPIRE HEADERS ######################
+ExpiresActive On
+ExpiresDefault A604800
+ExpiresByType image/jpg "access 1 year"
+ExpiresByType image/jpeg "access 1 year"
+ExpiresByType image/gif "access 1 year"
+ExpiresByType image/png "access 1 year"
+ExpiresByType text/css "access 1 month"
+ExpiresByType text/html "access plus 0 seconds"
+ExpiresByType application/pdf "access 1 month"
+ExpiresByType text/x-javascript "access 1 month"
+ExpiresByType application/x-shockwave-flash "access 1 month"
+ExpiresByType image/x-icon "access 1 year"
+ExpiresDefault "access plus 7 days"
+
+################ ADD VALUES FROM HTTP HEADERS ######################
+SetEnvIfNoCase ^If-Modified-Since$ "(.+)" HTTP_IF_MODIFIED_SINCE=$1
+SetEnvIfNoCase ^If-None-Match$ "(.+)" HTTP_IF_NONE_MATCH=$1
+SetEnvIfNoCase ^Cache-Control$ "(.+)" HTTP_CACHE_CONTROL=$1
+SetEnvIfNoCase ^Connection$ "(.+)" HTTP_CONNECTION=$1
+SetEnvIfNoCase ^Keep-Alive$ "(.+)" HTTP_KEEP_ALIVE=$1
+SetEnvIfNoCase ^Authorization$ "(.+)" HTTP_AUTHORIZATION=$1
+SetEnvIfNoCase ^Cookie$ "(.+)" HTTP_MY_COOKIE=$1
+
+################ 6G FIREWALL/BLACKLIST ######################
+# @ https://perishablepress.com/6g/
+
+# 6G:[QUERY STRINGS]
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{QUERY_STRING} (eval\() [NC,OR]
+    RewriteCond %{QUERY_STRING} (127\.0\.0\.1) [NC,OR]
+    RewriteCond %{QUERY_STRING} ([a-z0-9]{2000}) [NC,OR]
+    RewriteCond %{QUERY_STRING} (javascript:)(.*)(;) [NC,OR]
+    RewriteCond %{QUERY_STRING} (base64_encode)(.*)(\() [NC,OR]
+    RewriteCond %{QUERY_STRING} (GLOBALS|REQUEST)(=|\[|%) [NC,OR]
+    RewriteCond %{QUERY_STRING} (<|%3C)(.*)script(.*)(>|%3) [NC,OR]
+    RewriteCond %{QUERY_STRING} (\\|\.\.\.|\.\./|~|`|<|>|\|) [NC,OR]
+    RewriteCond %{QUERY_STRING} (boot\.ini|etc/passwd|self/environ) [NC,OR]
+    RewriteCond %{QUERY_STRING} (thumbs?(_editor|open)?|tim(thumb)?)\.php [NC,OR]
+    RewriteCond %{QUERY_STRING} (\'|\")(.*)(drop|insert|md5|select|union) [NC]
+    RewriteRule .* - [F]
+</IfModule>
+
+# 6G:[REQUEST METHOD]
+<IfModule mod_rewrite.c>
+    RewriteCond %{REQUEST_METHOD} ^(connect|debug|delete|move|put|trace|track) [NC]
+    RewriteRule .* - [F]
+</IfModule>
+
+# 6G:[REFERRERS]
+<IfModule mod_rewrite.c>
+    RewriteCond %{HTTP_REFERER} ([a-z0-9]{2000}) [NC,OR]
+    RewriteCond %{HTTP_REFERER} (semalt.com|todaperfeita) [NC]
+    RewriteRule .* - [F]
+</IfModule>
+
+# 6G:[REQUEST STRINGS]
+<IfModule mod_alias.c>
+    RedirectMatch 403 (?i)([a-z0-9]{2000})
+    RedirectMatch 403 (?i)(https?|ftp|php):/
+    RedirectMatch 403 (?i)(base64_encode)(.*)(\()
+    RedirectMatch 403 (?i)(=\\\'|=\\%27|/\\\'/?)\.
+    RedirectMatch 403 (?i)/(\$(\&)?|\*|\"|\.|,|&|&amp;?)/?$
+    RedirectMatch 403 (?i)(\{0\}|\(/\(|\.\.\.|\+\+\+|\\\"\\\")
+    RedirectMatch 403 (?i)(~|`|<|>|:|;|,|%|\\|\s|\{|\}|\[|\]|\|)
+    RedirectMatch 403 (?i)/(=|\$&|_mm|cgi-|etc/passwd|muieblack)
+    RedirectMatch 403 (?i)(&pws=0|_vti_|\(null\)|\{\$itemURL\}|echo(.*)kae|etc/passwd|eval\(|self/environ)
+    RedirectMatch 403 (?i)\.(aspx?|bash|bak?|cfg|cgi|dll|exe|git|hg|ini|jsp|log|mdb|out|sql|svn|swp|tar|rar|rdf)$
+    RedirectMatch 403 (?i)/(^$|(wp-)?config|mobiquo|phpinfo|shell|sqlpatch|thumb|thumb_editor|thumbopen|timthumb|webshell)\.php
+</IfModule>
+
+# 6G:[USER AGENTS]
+<IfModule mod_setenvif.c>
+    SetEnvIfNoCase User-Agent ([a-z0-9]{2000}) bad_bot
+    SetEnvIfNoCase User-Agent (archive.org|binlar|casper|checkpriv|choppy|clshttp|cmsworld|diavol|dotbot|extract|feedfinder|flicky|g00g1e|harvest|heritrix|httrack|kmccrew|loader|miner|nikto|nutch|planetwork|postrank|purebot|pycurl|python|seekerspider|siclab|skygrid|sqlmap|sucker|turnit|vikspider|winhttp|xxxyy|youda|zmeu|zune) bad_bot
+    <limit GET POST PUT>
+        Order Allow,Deny
+        Allow from All
+        Deny from env=bad_bot
+    </limit>
+</IfModule>
+
+# 6G:[BAD IPS]
+<Limit GET HEAD OPTIONS POST PUT>
+    Order Allow,Deny
+    Allow from All
+    # uncomment/edit/repeat next line to block IPs
+    # Deny from 123.456.789
+</Limit>

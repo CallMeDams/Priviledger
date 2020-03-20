@@ -1,0 +1,37 @@
+[(#REM) *****
+			DOWNLOAD APP CIRCLE LINK INCLUDE
+			*****
+	]<INCLURE{fond=imports/circle_link}>
+
+    <footer id="download" class="flex fxjc">
+
+		<div class="blackwrap flex fxjc">
+
+			<BOUCLE_download(ARTICLES){id_rubrique=25}{lang}{0,1}><div class="title romina">
+				<strong>
+					#TITRE
+				</strong>
+			</div></BOUCLE_download>
+
+			<!--<div id="applink_container">
+				<BOUCLE_applink1(ARTICLES){id_rubrique=28}{lang}{'
+				'}><a href="#URL_SITE" target="_blank" rel="external">
+					<BOUCLE_apps(DOCUMENTS){id_article}{extension==png|jpg|gif}{0,1}><img src="#URL_DOCUMENT" alt="<:downloadapp:> #TITRE"></BOUCLE_apps>
+				</a></BOUCLE_applink1>
+			</div>-->
+
+			<a href="<BOUCLE_applink(ARTICLES){id_rubrique=28}{titre LIKE %ios%}{lang}{0,1}>#URL_SITE</BOUCLE_applink>" class="downloadsmallblock flex fxjb fxac">
+				<img src="medias/imports/download_app_icon_circle.png" alt="">				
+				<em><:toreserveapp:></em>
+			</a>
+
+		</div>
+
+		[(#REM) *****
+                COPYRIGHT
+                *****
+        ]<div id="legals">
+			[(#MAINTENANT{'Y'})] &copy; #NOM_SITE_SPIP<B_legalslink> - <BOUCLE_legalslink(ARTICLES){id_rubrique=64}{lang=fr}{par num titre}{statut IN publie}{' - '}><a href="#URL_ARTICLE">#TITRE #SOUSTITRE</a></BOUCLE_legalslink> - <:copyrightdes:> : <a href="#" target="_blank" rel="external">Clémentine Damolini</a> - <:copyrightdev:> :  <a href="#" target="_blank" rel="external">Certifié Conforme</a> - <a href="https://validator.w3.org/nu/?doc=[(#ENV{site_root}|urlencode)/][(#ENV{page}|=={'home'}|?{[(#LANG|!={'en'}|?{#LANG,''})],''})][(#ENV{page}|!={'home'}|?{[(#URL_ARTICLE|urlencode)],''})]" target="_blank" rel="external">W3C Valid</a>
+		</div>
+
+	</footer>

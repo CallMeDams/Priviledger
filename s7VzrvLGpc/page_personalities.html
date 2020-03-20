@@ -1,0 +1,154 @@
+<BOUCLE_article_principal(ARTICLES){id_article}{lang_select=non}{0,1}>[
+	(#REM)  *****
+			HEAD CSS AND JS INCLUSION : AUTOMATIC DETECTION FOR BASIS AND USEFUL ONLY CSS AND JS FILES
+			*****
+	]<INCLURE{fond=models/head}{env}{id_article}{page=page}{type=website}>
+
+    <!--INITCSS()-->
+</head>
+
+<body id="page" class="[(#ENV{device})][(#ENV{mandatory}|=={1}|?{' mandatory',''})]" data-addon="incSwiper">
+
+	[(#REM) *****
+			HEADER INCLUDE
+			*****
+	]<INCLURE{fond=imports/header,page=page}{env}{id_article}>
+
+
+    [(#REM) *****
+			HOME H1 WITH BACKGROUND IMAGE
+			To change the image. Go in the backoffice :
+				HOME PAGE > Article > Change image linked
+			*****
+	]<div id="onecard_header" class="Top backed reverse flex fxjc">
+		
+		<h1 class="sides">
+			<strong class="romina flex fxac">[(#TITRE|trim)][ (#ENV{priville}|strtolower|ucfirst)][<br>(#SOUSTITRE)]</strong>
+		</h1>
+		
+	</div>
+	
+	[(#REM) *****
+			RECOMMENDED
+			To change the title. Go to the backoffice :
+				HOME PAGE > PLACES AND SERVICES > Modify the article
+			*****
+	]<BOUCLE_recommended_carousel(ARTICLES){id_rubrique=43}{0,1}{lang}><section class="popular_carousel animated" data-anim-options="fadeInUp">
+	
+		<h4 class="romina">
+			#TITRE
+			<strong class="farnham">#SOUSTITRE[ (#ENV{priville}|strtolower|ucfirst)] !</strong>
+		</h4>[
+		
+		<div class="baseline">
+			(#TEXTE|textebrut|trim)
+		</div>]
+		
+		<BOUCLE_places_section(RUBRIQUES){tout}{titre LIKE %perso%}{titre LIKE %#ENV{priville}%}{lang_select=non}{0,1}><div id="SecondItemsCarousel" class="popular_container flex fxjc">
+		
+			<div class="swiper-wrapper popularSwipper">
+			
+				[(#REM) *****
+						ITEMS CONTAINER
+						To change carousel items. Go to the backoffice :
+							HOME PAGE -------
+						*****
+				]<BOUCLE_places(ARTICLES){id_rubrique}{lang}{'
+				
+				'}><div class="swiper-slide item">
+					<a href="#URL_ARTICLE">
+						<BOUCLE_thumb1(DOCUMENTS){id_article}{titre LIKE %thumb%}><img src="#URL_DOCUMENT" alt="#DESCRIPTIF"></BOUCLE_thumb1>
+						<span class="content flex fxjc fxac">
+							<strong class="farnham">
+								#TITRE
+								<em>#SOUSTITRE</em>
+							</strong>
+						</span>
+					</a>
+				</div></BOUCLE_places>
+			
+			</div>
+		
+		</div>
+		
+		<div class="carousel_nav">
+
+			[(#REM) *****
+					DRAG BAR
+					*****
+			]<div id="secondScroll" class="swiper-scrollbar"></div>
+
+		</div></BOUCLE_places_section>
+	
+	</section></BOUCLE_recommended_carousel>
+	
+	[(#REM) *****
+			SALES CAROUSEL
+			To change the title. Go to the backoffice :
+				HOME PAGE > SALES CAROUSEL SECTION > Modify the article
+			*****
+	]<BOUCLE_sales_carousel(ARTICLES){id_rubrique=16}{0,1}{lang}><section id="sales_carousel" class="animated" data-anim-options="fadeIn">
+	
+		<h4 class="romina">
+			#TITRE[<br>(#SOUSTITRE|trim)][ (#ENV{priville}|strtolower|ucfirst)] !
+			<strong class="farnham">[(#CHAPO|textebrut)]</strong>
+		</h4>[
+		
+		<div class="baseline">
+			(#TEXTE|textebrut)
+		</div>]
+		
+		<div id="sales_container" class="flex fxjb fxac">
+		
+			[(#REM) *****
+					SALES CONTAINER
+					To change carousel items. Go to the backoffice :
+						HOME PAGE ????????????????????
+					*****
+			]<div id="sales" class="swiper-wrapper salesSwipper">
+
+				<BOUCLE_sales(ARTICLES){id_rubrique=17}{par num titre}{lang}{0,3}{'
+				'}><div class="swiper-slide sale">
+					<BOUCLE_image_sale(DOCUMENTS){id_article}{extension==jpg|png|gif}{0,1}><a #SESSION{appLinkFull}><img src="#URL_DOCUMENT" alt="[(#_cards:SURTITRE) ]#_cards:TITRE" class="block"></a></BOUCLE_image_sale>
+					<a #SESSION{appLinkFull} class="content block flex fxjc fxac">
+						[<em class="romina">(#SURTITRE)</em>
+						]<strong>#TITRE</strong>
+						#SOUSTITRE[
+						<br>(#CHAPO|textebrut)]
+					</a>
+				</div></BOUCLE_sales>
+				<div class="swiper-pagination"></div>
+
+			</div>
+			
+			[(#REM) *****
+					PREV LINKS
+					*****
+			]<div class="nav prevLink flex fxjc fxac">
+				<a href="#prev" class="prev" rel="nofollow"><i class="fal fa-chevron-left"></i></a>
+			</div>
+			[(#REM) *****
+					NEXT LINKS
+					*****
+			]<div class="nav nextLink flex fxjc fxac">
+				<a href="#next" class="next" rel="nofollow"><i class="fal fa-chevron-right"></i></a>
+			</div>
+		
+		</div>
+	
+	</section></BOUCLE_sales_carousel>
+
+    [(#REM) *****
+			FOOTER INCLUDE
+			*****
+	]<INCLURE{fond=imports/footer,page=page}{env}{id_article}>
+
+
+	[(#REM) *****
+			LEGAL, CSS AND JS ADDONS MANAGEMENT
+			*****
+	]<INCLURE{fond=models/addons,addon=ending}{env}{id_article}{page=page.profile.widgets}>
+
+
+</body>
+</html></BOUCLE_article_principal>

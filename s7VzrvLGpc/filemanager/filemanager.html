@@ -1,0 +1,58 @@
+<? if('#SESSION{statut}'!='' && ('#SESSION{statut}'=='0minirezo' || '#SESSION{statut}'=='1comite')) { ?><!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>EXPLOREUR</title>
+	[<meta(#ENV{mobile}|=={'oui'}|oui)name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" /> 
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1,requiresActiveX=true" />
+	]<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css' />
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css' />
+	<link rel="stylesheet" type="text/css" href="layout/css/starter.css" />
+	<link rel="stylesheet" type="text/css" href="layout/css/filemanager.css" />
+	<script type="text/javascript" src="layout/js/starter.js"></script>
+	<script type="text/javascript" src="layout/js/filemanager.js"></script>
+	$ADDONS$<meta name="robots" content="noindex,nofollow" />
+</head>
+
+<body>
+	<div id="barre">
+		<div class="container">
+			<section id="views">
+				<a href="#" class="v_box">box</a>
+				<a href="#" class="v_list">list</a>
+			</section>
+			<a href="#" class="tab active" data-tab='#medias'>MÉDIATHÈQUE</a>
+			<a href="#" class="tab" data-tab='#pages'>PLAN DU SITE</a>
+			<section id="filters">
+				<a href="#" class="f_all">tout</a>
+				<a href="#" class="f_file">fichier</a>
+				<a href="#" class="f_image">image</a>
+				<a href="#" class="f_music">musique</a>
+				<a href="#" class="f_video">video</a>
+				<a href="#" class="f_zip">zip</a>				
+			</section>			
+		</div>
+	</div>
+	<div id="browser" class="boxed">
+		<section id="medias" class="isotope">
+			<BOUCLE_medias(DOCUMENTS){tout}{par fichier}{'<!--
+			-->'}><article class="element[ (#EXTENSION|fmTreatment{#URL_DOCUMENT}|table_valeur{0})]">
+				<div class="thumb[ (#EXTENSION|fmTreatment{#URL_DOCUMENT}|table_valeur{2})]"[ (#EXTENSION|fmTreatment{#URL_DOCUMENT}|table_valeur{3})]>[(#EXTENSION|fmTreatment{#URL_DOCUMENT}|table_valeur{1}|!={0}|oui)[(#EXTENSION|fmTreatment{#URL_DOCUMENT}|table_valeur{1})]] </div>
+				
+				<div class="options">
+					<a href="#" class="[(#EXTENSION|fmTreatment{#URL_DOCUMENT}|table_valeur{0}|=={'image'}|?{'w50','w100'})] infos addon_modal" rel="mod#ID_DOCUMENT" data-type="html" data-content="<div class='content_infos'><h5>[(#FICHIER|basename)]</h5><strong><em>#EXTENSION</em> - [(#TAILLE|taille_en_octets)]</strong>[(#LARGEUR|!={0}|oui)#LARGEURpx x #HAUTEURpx]</div>"></a><!--
+					-->[<a(#EXTENSION|fmTreatment{#URL_DOCUMENT}|table_valeur{0}|=={'image'}|oui)href="#URL_DOCUMENT" class="w50 preview addon_modal" rel="mod#ID_DOCUMENT"></a><!--
+					-->]<a href="#" class="w100 link" data-filename="#URL_DOCUMENT"></a>
+				</div>
+				<h6>[(#FICHIER|basename|couper{20,'...'})]</h6>
+			</article></BOUCLE_medias>
+		</section>
+		<section id="pages" class="isotope">
+			<BOUCLE_pages_section(RUBRIQUES){id_rubrique IN 4}><BOUCLE_pages(ARTICLES){branche}{par date}{inverse}{'
+			'}>#TITRE </BOUCLE_pages></BOUCLE_pages_section>
+		</section>
+	</div>
+	
+</body>
+</html>
+<? }else{ echo '<:noaccess:>'; } ?>

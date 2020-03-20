@@ -1,0 +1,242 @@
+<BOUCLE_article_principal(ARTICLES){id_rubrique=13}{lang=#ENV{lang}}{!par date}{0,1}>[
+	(#REM)  *****
+			HEAD CSS AND JS INCLUSION : AUTOMATIC DETECTION FOR BASIS AND USEFUL ONLY CSS AND JS FILES
+			*****
+	]<INCLURE{fond=models/head}{env}{id_article}{page=page}{type=website}>
+
+    <!--INITCSS()-->
+</head>
+
+<body id="page" class="[(#ENV{device})][(#ENV{mandatory}|=={1}|?{' mandatory',''})]">
+
+	[(#REM) *****
+			HEADER INCLUDE
+			*****
+	]<INCLURE{fond=imports/header,page=page}{env}{id_article}>
+
+
+    [(#REM) *****
+			MAIN TEXT
+			*****
+	]<h1 class="romina">
+		#TITRE[<br>(#SOUSTITRE)]
+		<strong class="farnham">[(#CHAPO|textebrut)]</strong>
+	</h1>
+	
+	[(#REM) *****
+			MAIN PAGE CONTENT
+			*****
+	]<div id="page_content">
+    
+        <div id="center_card">
+            <BOUCLE_membership_link(ARTICLES){id_rubrique=25}{lang}><BOUCLE_pic_card(DOCUMENTS){id_article}{0,1}{fichier LIKE %card%}><img src="#URL_DOCUMENT" alt="#DESCRIPTIF" class="membershipCard"></BOUCLE_pic_card></BOUCLE_membership_link>
+        </div>
+	
+		<div id="form" class="fa-">
+
+			<?
+		
+				// ***** MAIL INIT *****
+				// ---------------------
+
+					$mail_status='no';
+					$verif=true;
+					$isHumanFieldName=md5('ihfn_cilere');
+
+				// ***** MAIL CHECK AND SEND *****
+				if(!empty($_POST['membership'])) {
+
+					// ----- $_POST TO $VARS -----
+					// ---------------------------
+
+					extract($_POST['membership'],EXTR_OVERWRITE);
+
+					// ----- CHECK BOTS AND RGPD -----
+					// -------------------------------
+
+					if(empty($_POST['EmailVerif'])===true && $_POST[$isHumanFieldName]>0 && $RGPD=='oui') {
+
+						// ----- MAKE EMAIL -----
+						// ----------------------
+
+						if($verif===true) {
+
+							/* PHPMAILER INIT
+								- Mailer lib init
+							*/
+
+								// Load Composer's autoloader
+								// --------------------------
+
+									require 'components/mailer/php/Exception.php';
+									require 'components/mailer/php/PHPMailer.php';
+									require 'components/mailer/php/SMTP.php';
+
+								// Create Mailer instance
+								// ----------------------
+
+									$mail = new PHPMailer\PHPMailer\PHPMailer(true);
+
+								// Language
+								// --------
+
+									$mail->setLanguage('fr');
+									$mail->CharSet = 'UTF-8';
+									$mail->isHTML(true);
+								
+								// Server settings
+								// ---------------
+									
+									$mail->isSMTP();
+									$mail->Host       = 'mail.infomaniak.com';
+									$mail->SMTPAuth   = true;
+									$mail->Username   = 'help@priviledger.net';
+									$mail->Password   = 'M&mcR-4$Ab7d-P6C';
+									$mail->Port       = 587; 
+
+							/* MAIL CONTENT
+								- Admin email creation and sending
+							*/
+
+								// Send ADMIN email
+								// ----------------
+
+									try{
+										$mail->ClearAllRecipients();
+										if (!filter_var($EmailID,FILTER_VALIDATE_EMAIL)) {
+											$bodyEmail='WeChatID : '.$EmailID;
+											$EmailID=$EmailID.'@wechat.com';
+										}else{
+											$bodyEmail='Email : '.$EmailID;
+										}
+										$mail->setFrom($EmailID,$Name);
+										$mail->addAddress('webmaster@certifie-conforme.com','Priviledger');
+										$mail->Subject = '[#NOM_SITE_SPIP] Nouvelle invitation demandée';
+										$mail->Body    = 'Une nouvelle demande d\'invitation a été faite depuis le site Priviledger pour :
+										<br>Nom : '.$Name.'
+										<br>'.$bodyEmail;
+										$mail->send();
+										echo '<div class="alert success"><:mail_sent_p:></div>';
+										$mail_status="yes";
+									}catch(Exception $e){
+										$mail_status="no";
+										echo '<div class="alert error"><:mail_error_p:>'.$mail->ErrorInfo.'</div>';
+									}
+									
+						}
+
+					}else{
+
+						$array_find=array('@link@','@mail@');
+						$array_replace=array('#SELF',crypt_html('','<a href="mailto:#EMAIL_WEBMASTER">#EMAIL_WEBMASTER</a>'));
+						echo '<div class="alert warning">'.str_replace($array_find,$array_replace,'<:form_robot_warning:>').'</div>';
+
+					}
+
+				}
+
+			?>
+		
+			<? if($mail_status==='no') { ?><form action="#SELF" method="post" enctype="multipart/form-data">
+
+				<div class="flex fxjb">
+					<input type="text" name="membership[EmailID]" value="<? echo $EmailID; ?>" placeholder="<:form_email:>" required>
+					<input type="hidden" name="EmailVerif" value="">
+					<input type="text" name="membership[Name]" value="<? echo $Name; ?>" placeholder="<:form_name:>" required>
+				</div>
+
+				<div class="rgpd checkField">
+					<div class="item">
+						<input id="rgpd" name="membership[RGPD]" type="checkbox" value="oui" required>
+						<label for="rgpd"></label>
+					</div>
+					<div class="rgpd_text"><:form_rgpd_contact:></div>
+				</div>
+			
+				<div id="send_button" class="checkField">
+					<input type="hidden" class="ihfn" name="<? echo $isHumanFieldName; ?>" value="0">
+					<div id="links"><input type="submit" name="sendForm" value="<:form_submit:>"></div>
+				</div>
+
+			</form><? } ?>
+			
+		</div>
+
+		[(#REM) *****
+				FULL WIDTH IMAGE
+				To change the title. Go to the backoffice :
+					HOME PAGE > MOBILE IMAGE SECTION > Modify the article
+				*****
+		]<BOUCLE_fullwidth(ARTICLES){id_rubrique=19}{lang}{0,1}><div id="fullwidth">
+			[(#REM) *****
+					FULL WIDTH IMAGE
+					To change the 3 columns content. Go to the backoffice :
+						---
+					*****
+			]<BOUCLE_fullwidth_pic(DOCUMENTS){id_article}{extension==gif|png|gif|jpg|svg}{0,1}{'
+			'}><img src="[(#ENV{device}|!={'phone'}|?{#URL_DOCUMENT,[(#LOGO_DOCUMENT|fichier|sinon{[(#FICHIER|image_passe_partout{600,600}|image_recadre{600,600,center}|inserer_attribut{class,backimage})]})]})]" alt="#TITRE"></BOUCLE_fullwidth_pic>
+		</div></BOUCLE_fullwidth>
+		
+		[(#REM) *****
+				3 COLUMNS SECTION
+				To change the title and the text. Go to the backoffice :
+					HOME PAGE > 3 COLUMNS SECTION > Modify the article
+				*****
+		]<div id="columns">
+
+			<h2 class="romina">#NOM_SITE</h2>
+
+			<div class="flex fxja">
+				[(#REM) *****
+						3 COLUMNS CONTENT
+						To change the 3 columns content. Go to the backoffice :
+							HOME PAGE > 3 COLUMNS SECTION > Change or add image to the article and update Title and Description
+						*****
+				]<BOUCLE_col_section(ARTICLES){id_rubrique=15}{lang}{0,1}><BOUCLE_columns(DOCUMENTS){id_article}{extension==gif|png|gif|jpg|svg}{0,4}{par num titre}{'
+				'}><div class="column animated" data-anim-options="fadeInUp">
+					<img src="#URL_DOCUMENT" alt="#TITRE">
+					<strong>[(#TITRE|replace{'/','<br>'})]</strong>
+					<div class="descriptif farnham">
+						#DESCRIPTIF
+					</div>
+				</div></BOUCLE_columns></BOUCLE_col_section>
+			</div>
+
+		</div>
+		
+		[(#REM) *****
+				MIDDLE SECTION
+				*****
+		]<BOUCLE_middle(ARTICLES){id_rubrique=30}{lang}{0,1}><div id="middle" class="maintext flex fxjb">
+			<BOUCLE_imgleft(DOCUMENTS){id_article}{extension==png|jpg|gif}{titre LIKE %x%}{0,1}><img src="#URL_DOCUMENT" alt="#DESCRIPTIF" class="imgleft"></BOUCLE_imgleft>
+			<div class="right">
+				<h3 class="romina">#TITRE</h3>
+				<div class="content">
+					#TEXTE
+				</div>
+				<div id="applist">
+					<BOUCLE_applink(ARTICLES){id_rubrique=28}{lang}{'
+					'}><a href="#URL_SITE" target="_blank" rel="external">
+						<BOUCLE_apps(DOCUMENTS){id_article}{extension==png|jpg|gif}{0,1}><img src="#URL_DOCUMENT" alt="<:downloadapp:> #TITRE"></BOUCLE_apps>
+					</a></BOUCLE_applink>
+				</div>
+			</div>
+			<img src="medias/imports/badge.svg" alt="Priviledger" class="badge">
+		</div></BOUCLE_middle>
+	
+	</div>
+
+    [(#REM) *****
+			FOOTER INCLUDE
+			*****
+	]<INCLURE{fond=imports/footer,page=page}{env}{id_article}>
+
+
+	[(#REM) *****
+			LEGAL, CSS AND JS ADDONS MANAGEMENT
+			*****
+	]<INCLURE{fond=models/addons,addon=ending}{env}{id_article}{page=page.membership}>
+
+
+</body>
+</html></BOUCLE_article_principal>

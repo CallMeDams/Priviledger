@@ -1,0 +1,134 @@
+/* ################## */
+/* CUSTOM PAGE STYLES */
+/* ################## */
+
+/********************/
+/* TABLE OF CONTENT */
+/********************/
+/*
+	1. SIMPLE TEXT
+    2. MEMBERSHIP PRESENTATION
+*/
+
+/******************/
+/* 1. SIMPLE TEXT */
+/******************/
+.padded{
+	padding:80px -webkit-calc( (100% - 600px) / 2) 0;
+	padding:80px calc( (100% - 600px) / 2) 0;
+	text-align: center;
+	line-height: 1.5rem
+}
+
+/******************************/
+/* 2. MEMBERSHIP PRESENTATION */
+/******************************/
+#middle{
+	margin-top:130px;
+	position: relative;
+	background-color:rgba(214,211,212,0.20);
+	padding:110px 5% 80px;
+}
+	.maintext img.imgleft{
+        display: block;
+		width: 50%;
+		height: auto
+	}
+	.right{
+		width: 50%;
+		padding:0 5% 0 80px;
+	}
+	#middle .content{
+		font-size:0.875rem;
+	}
+		#middle .content strong{
+			color:@pink
+		}
+		#applist{
+			margin-top: 30px;
+		}
+			#applist img{
+				width:auto;
+				height:70px
+			}
+		.maintext img.badge{
+			position: absolute;
+            display: block;
+            width: 152px;
+            height: 152px;
+			top:-76px;
+			left:-webkit-calc(50% - 76px);
+			left:calc(50% - 76px)
+		}
+		.maintext p{
+			margin-bottom: 10px
+		}
+
+/* *********************************** */
+/* ***** RESPONSIVE BREAK POINTS ***** */
+/* *********************************** */
+
+/* ---------- MOBILE, PHABLET AND TABLET ---------- */
+@media screen and (max-width:1299px){}
+
+/* ---------- MOBILE, PHABLET AND TABLET PORTRAIT ---------- */
+@media screen and (max-width:799px), screen and (min-width:800px) and (max-width:1299px) and (orientation:portrait){
+    .padded{
+        padding:40px 20px
+    }
+    #middle{
+        margin-top:40px;
+		padding-bottom:10px;
+    }
+        .maintext img.imgleft{
+            width:100%;
+            height:250px
+        }
+        .right{
+            width:100%;
+            margin-top:0;
+            padding:80px 0 30px
+        }
+        #middle .content{
+            text-align: center
+        }
+            #middle h3.romina{
+                text-align: center
+            }
+            #applist{
+                text-align: center
+            }
+                .maintext #applist img{
+                    width:auto
+                }
+            .maintext img.badge{
+                width: 100px;
+                height: 100px;
+                top: -50px;
+                left:-webkit-calc(50% - 50px);
+                left:calc(50% - 50px)
+            }
+}
+
+/* ---------- MOBILE AND PHABLET ---------- */
+@media screen and (max-width:410px){}
+
+/* ---------- SMALL DESKTOP AND TABLET LANDSCAPE ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:landscape){}
+
+/* ---------- TABLET PORTRAIT ---------- */
+@media screen and (min-width:800px) and (max-width:1159px) and (orientation:portrait){}
+
+/* ---------- BIG DESKTOP ---------- */
+@media screen and (min-width:1500px){
+	.maintext p{
+		margin-bottom: 20px
+	}
+	.maintext img.imgleft{
+		width: 45%
+	}
+	.right{
+		width: 55%;
+		padding:0 15% 0 80px;
+	}
+}

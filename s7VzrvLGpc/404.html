@@ -1,0 +1,109 @@
+#HTTP_HEADER{HTTP/1.0  #ENV{code,'404 Page not found'}}
+#HTTP_HEADER{"Cache-Control: no-store, no-cache, must-revalidate"}
+#HTTP_HEADER{Pragma: no-cache}<BOUCLE_article_principal(ARTICLES){tout}{statut=publie}{lang}{titre LIKE %404%}{0,1}>[
+	(#REM)  *****
+			HEAD CSS AND JS INCLUSION : AUTOMATIC DETECTION FOR BASIS AND USEFUL ONLY CSS AND JS FILES
+			*****
+	]<INCLURE{fond=models/head}{env}{id_article}{page=page}{type=website}>
+
+    <!--INITCSS()-->
+</head>
+
+<body id="page" class="[(#ENV{device})][(#ENV{mandatory})]">
+
+	[(#REM) *****
+			HEADER INCLUSION
+			*****
+	]<INCLURE{fond=imports/header}{env}{id_article}{page=page}>
+	
+
+	[(#REM) *****
+			INTRODUCTION VIDEO CONTAINER
+			*****
+	]<div id="introduction" class="flex fxjc fxac">
+	
+		<div class="h1">
+			<h1 class="m4u_title flex fxac">
+				#CHAPO
+			</h1>
+		</div>
+
+	</div>
+
+	[(#REM) *****
+			WINNER MESSAGE
+			*****
+	]<div id="win">
+		<strong><multi>[fr]Bravo - Vous avez gagné ![en]Congratulations - You won!</multi></strong>
+		<span><multi>[fr]Nombre de coups :[en]Number of moves:</multi> <em></em></span>
+		<a href="#URL_ARTICLE"><multi>[fr]Recommencez pour voir d'autres créations[en]Start again to see other creations</multi></a>
+	</div>
+	
+	[(#REM) *****
+			MAIN TEXT
+			*****
+	][<div id="page_content" class="padded maintext">
+	
+		(#TEXTE)
+	
+	</div>]
+	
+	<p>&nbsp;</p>
+	
+	[(#REM) *****
+			MEMORY
+			*****
+	]<B_home_patchwork><div id="memory" class="flex fxjb fxab" data-total="#TOTAL_BOUCLE">
+
+		<BOUCLE_home_patchwork(ARTICLES){id_rubrique=5}{id_mot=17}{par hasard}{lang=#ENV{lang}}{0,6}{'
+
+		'}><div class="flip-card veiled" data-title="card-#COMPTEUR_BOUCLE">
+			<div class="flip-card-inner">
+				<div class="flip-card-front">
+					<img src="medias/png/memory-back.png" alt="Made for you - Agence spécialisée en design graphique et digitale et stratégie de marque">
+					<div class="flex fxjc fxac">#COMPTEUR_BOUCLE</div>
+				</div>
+				<div class="flip-card-back">
+					<div class="nom-client poa"><a href="#URL_ARTICLE" target="_blank">#TITRE</a></div>
+					<div class="project-link poa"><a href="#URL_ARTICLE" target="_blank"><multi>[fr]Voir le projet[en]See the project</multi></a></div>
+					<div class="frame">
+						<BOUCLE_image_carre_1(DOCUMENTS){id_article}{carre}{fichier LIKE %carre%}><img src="[(#ENV{device}|!={'phone'}|?{#URL_DOCUMENT,[(#LOGO_DOCUMENT|fichier|sinon{[(#FICHIER|image_passe_partout{138,138}|image_recadre{138,138,center}|inserer_attribut{class,backimage})]})]})]" alt="Avatar"></BOUCLE_image_carre_1>
+					</div>
+					<div class="logo poa"><a href="#ENV{site_root}" target="_blank"><img src="medias/imports/logo_menu_M4U.png" alt=""></a></div>
+				</div>
+			</div>
+		</div>
+
+		<div class="flip-card veiled" data-title="card-#COMPTEUR_BOUCLE">
+			<div class="flip-card-inner">
+				<div class="flip-card-front">
+					<img src="medias/png/memory-back.png" alt="Made for you - Agence spécialisée en design graphique et digitale et stratégie de marque">
+					<div class="flex fxjc fxac">#COMPTEUR_BOUCLE</div>
+				</div>
+				<div class="flip-card-back">
+					<div class="nom-client poa"><a href="#URL_ARTICLE" target="_blank">#TITRE</a></div>
+					<div class="project-link poa"><a href="#URL_ARTICLE" target="_blank"><multi>[fr]Voir le projet[en]See the project</multi></a></div>
+					<div class="frame">
+						<BOUCLE_image_carre_2(DOCUMENTS){id_article}{carre}{fichier LIKE %carre%}><img src="[(#ENV{device}|!={'phone'}|?{#URL_DOCUMENT,[(#LOGO_DOCUMENT|fichier|sinon{[(#FICHIER|image_passe_partout{138,138}|image_recadre{138,138,center}|inserer_attribut{class,backimage})]})]})]" alt="Avatar"></BOUCLE_image_carre_2>
+					</div>
+					<div class="logo poa"><a href="#ENV{site_root}" target="_blank"><img src="medias/imports/logo_menu_M4U.png" alt=""></a></div>
+				</div>
+			</div>
+		</div></BOUCLE_home_patchwork>
+
+	</div>
+	
+	[(#REM) *****
+			FOOTER INCLUSION
+			*****
+	]<INCLURE{fond=imports/footer}{env}{id_article}{page=page}>
+
+
+	[(#REM) *****
+			LEGAL, CSS AND JS ADDONS MANAGEMENT
+			*****
+	]<INCLURE{fond=models/addons}{env}{id_article}{page=page.reference.memory}>
+
+
+</body>
+</html></BOUCLE_article_principal>
